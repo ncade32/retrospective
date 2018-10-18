@@ -10,24 +10,23 @@ var incompleteTaskHolder=document.getElementById("incomplete-tasks");//ul of #in
 var createNewWrongItem=function(taskString){
 
 	var listItem=document.createElement("li");
-
-	//label
-	var label=document.createElement("label");//label
 	
-	//input (text)
-	var editInput=document.createElement("input");//text
+	//textarea
+	var editInput = document.createElement("TEXTAREA");
 	//button.edit
 	var editButton=document.createElement("button");//edit button
 
 	//button.delete
 	var deleteButton=document.createElement("button");//delete button
 
-	label.innerText=taskString;
 
 	//Each elements, needs appending
 	editInput.type="text";
 	editInput.name="wrong";
 	editInput.value = taskString;
+	editInput.readOnly = true;
+	editInput.wrap = "hard";
+	editInput.cols = 4;
 	editButton.type = "button";
 	deleteButton.type = "button";
 
@@ -40,7 +39,6 @@ var createNewWrongItem=function(taskString){
 
 
 	//and appending.
-	listItem.appendChild(label);
 	listItem.appendChild(editInput);
 	listItem.appendChild(editButton);
 	listItem.appendChild(deleteButton);
@@ -71,10 +69,10 @@ console.log("Change 'edit' to 'save'");
 var listItem=this.parentNode;
 
 var editButton=listItem.querySelector("button.edit");
-var editInput=listItem.querySelector('input[type=text]');
-var label=listItem.querySelector("label");
+var editInput = listItem.querySelector('textarea');
 
 editButton.innerText = "Save";
+editInput.readOnly = false;
 
 var containsClass=listItem.classList.contains("editMode");
 		//If class of the parent is .editmode
@@ -82,12 +80,9 @@ var containsClass=listItem.classList.contains("editMode");
 
 		//switch to .editmode
 		//label becomes the inputs value.
-			label.innerText=editInput.value;
 			editButton.innerText = "Edit";
-		}else{
-			editInput.value=label.innerText;
+			editInput.readOnly = true;
 		}
-
 		//toggle .editmode on the parent.
 		listItem.classList.toggle("editMode");
 }

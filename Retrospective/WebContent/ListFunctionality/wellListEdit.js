@@ -11,28 +11,30 @@ var wellHolderChild=document.getElementById("content").firstChild;
 //New task list item
 var createNewWellItemEdit=function(taskString){
 
-	var listItem=document.createElement("li");
 
-	//label
-	var label=document.createElement("label");//label
-	//input (text)
-	var editInput=document.createElement("input");//text
+	var listItem=document.createElement("li");
+	
+	//textarea
+	var editInput = document.createElement("TEXTAREA");
 	//button.edit
 	var editButton=document.createElement("button");//edit button
 
 	//button.delete
 	var deleteButton=document.createElement("button");//delete button
 
-	label.innerText=taskString;
 
 	//Each elements, needs appending
 	editInput.type="text";
 	editInput.name="well";
 	editInput.value = taskString;
+	editInput.readOnly = true;
+	editInput.wrap = "hard";
+	editInput.cols = 4;
 	editButton.type = "button";
 	deleteButton.type = "button";
 
 	editButton.innerText="Edit";//innerText encodes special characters, HTML does not.
+	editButton.value = "Edit";
 	editButton.className="edit";
 	deleteButton.innerText="Delete";
 	deleteButton.className="delete";
@@ -40,7 +42,6 @@ var createNewWellItemEdit=function(taskString){
 
 
 	//and appending.
-	listItem.appendChild(label);
 	listItem.appendChild(editInput);
 	listItem.appendChild(editButton);
 	listItem.appendChild(deleteButton);
@@ -53,13 +54,7 @@ var addWellItemEdit=function(){
 	console.log("Add Task...");
 	//Create a new list item with the text from the #new-task:
 	var listItem=createNewWellItemEdit(wellItemInputEdit.value);
-	/*
-	for(i = 0; i < completeTaskHolderChildren.length; i++){
-		if(wellHolderChild.id.equals("none")){
-			wellTaskHolderEdit.removeChild(wellTaskHolderEdit.firstChild);
-		}
-	}
-*/
+	
 	//Append listItem to completeTaskHolderEdit
 	completeTaskHolderEdit.appendChild(listItem);
 	bindTaskEventsWell(listItem, addWellItemEdit);
@@ -72,32 +67,29 @@ var addWellItemEdit=function(){
 //Edit an existing task.
 
 var editWellItemEdit=function(){
-console.log("Edit Task...");
-console.log("Change 'edit' to 'save'");
+	console.log("Edit Task...");
+	console.log("Change 'edit' to 'save'");
 
+	var listItem=this.parentNode;
 
-var listItem=this.parentNode;
+	var editButton=listItem.querySelector("button.edit");
+	var editInput = listItem.querySelector('textarea');
 
-var editInput=listItem.querySelector('input[type=text]');
-var label=listItem.querySelector("label");
-var containsClass=listItem.classList.contains("editMode");
-var editButton=listItem.querySelector("button.edit");
+	editButton.innerText = "Save";
+	editInput.readOnly = false;
 
-editButton.innerText = "Save";
-		//If class of the parent is .editmode
-		if(containsClass){
+	var containsClass=listItem.classList.contains("editMode");
+			//If class of the parent is .editmode
+			if(containsClass){
 
-		//switch to .editmode
-		//label becomes the inputs value.
-			label.innerText=editInput.value;
-			editButton.innerText = "Edit";
-		}else{
-			editInput.value=label.innerText;
-		}
-
-		//toggle .editmode on the parent.
-		listItem.classList.toggle("editMode");
-}
+			//switch to .editmode
+			//label becomes the inputs value.
+				editButton.innerText = "Edit";
+				editInput.readOnly = true;
+			}
+			//toggle .editmode on the parent.
+			listItem.classList.toggle("editMode");
+	}
 
 
 

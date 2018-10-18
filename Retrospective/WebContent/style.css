@@ -106,6 +106,12 @@ input#improveNew-task {
   float: left;
   width: 318px;
 }
+input#login {
+	position:absolute;
+    transition: .5s ease;
+    top: 100%;
+    left: 50%;
+}
 p > button:hover {
   color: #0FC57C;
 }
@@ -133,6 +139,16 @@ li > .delete:hover {
 /* Edit Task */
 ul li input[type=text] {
   display:none;
+}
+textarea{
+	width: 300px;	
+	border: none;
+	border-radius: 20px;
+	outline: none;
+	padding: 10px;	
+	resize: none; 
+	overflow: auto;
+	font-family: Lato, sans-serif;
 }
 
 ul li.editMode input[type=text] {

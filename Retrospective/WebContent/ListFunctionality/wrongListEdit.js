@@ -8,29 +8,30 @@ var incompleteTaskHolderEdit=document.getElementById("incomplete-tasks2");//ul o
 //New task list item
 var createNewWrongItemEdit=function(taskString){
 
-	var listItem=document.createElement("li");
 
-	//label
-	var label=document.createElement("label");//label
+	var listItem=document.createElement("li");
 	
-	//input (text)
-	var editInput=document.createElement("input");//text
+	//textarea
+	var editInput = document.createElement("TEXTAREA");
 	//button.edit
 	var editButton=document.createElement("button");//edit button
 
 	//button.delete
 	var deleteButton=document.createElement("button");//delete button
 
-	label.innerText=taskString;
 
 	//Each elements, needs appending
 	editInput.type="text";
 	editInput.name="wrong";
 	editInput.value = taskString;
+	editInput.readOnly = true;
+	editInput.wrap = "hard";
+	editInput.cols = 4;
 	editButton.type = "button";
 	deleteButton.type = "button";
 
 	editButton.innerText="Edit";//innerText encodes special characters, HTML does not.
+	editButton.value = "Edit";
 	editButton.className="edit";
 	deleteButton.innerText="Delete";
 	deleteButton.className="delete";
@@ -38,7 +39,6 @@ var createNewWrongItemEdit=function(taskString){
 
 
 	//and appending.
-	listItem.appendChild(label);
 	listItem.appendChild(editInput);
 	listItem.appendChild(editButton);
 	listItem.appendChild(deleteButton);
@@ -63,33 +63,29 @@ var addWrongItemEdit=function(){
 //Edit an existing task.
 
 var editTask=function(){
-console.log("Edit Task...");
-console.log("Change 'edit' to 'save'");
+	console.log("Edit Task...");
+	console.log("Change 'edit' to 'save'");
 
+	var listItem=this.parentNode;
 
-var listItem=this.parentNode;
+	var editButton=listItem.querySelector("button.edit");
+	var editInput = listItem.querySelector('textarea');
 
-var editInput=listItem.querySelector('input[type=text]');
-var editButton=listItem.querySelector("button.edit");
-var label=listItem.querySelector("label");
-var containsClass=listItem.classList.contains("editMode");
+	editButton.innerText = "Save";
+	editInput.readOnly = false;
 
-editButton.innerText = "Save";
+	var containsClass=listItem.classList.contains("editMode");
+			//If class of the parent is .editmode
+			if(containsClass){
 
-		//If class of the parent is .editmode
-		if(containsClass){
-
-		//switch to .editmode
-		//label becomes the inputs value.
-			label.innerText=editInput.value;
-			editButton.innerText = "Edit";
-		}else{
-			editInput.value=label.innerText;
-		}
-
-		//toggle .editmode on the parent.
-		listItem.classList.toggle("editMode");
-}
+			//switch to .editmode
+			//label becomes the inputs value.
+				editButton.innerText = "Edit";
+				editInput.readOnly = true;
+			}
+			//toggle .editmode on the parent.
+			listItem.classList.toggle("editMode");
+	}
 
 
 

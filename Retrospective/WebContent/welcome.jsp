@@ -13,6 +13,7 @@
 </head>
 <body>
 
+
 <%
 	System.out.println("Welcome Page");
 	Connection conn = DbManager.connect();
@@ -65,7 +66,6 @@
  
 
       <ul id="incomplete-tasks">
-       
       </ul>
       
       <p>
@@ -90,6 +90,8 @@
 
 </div>
 </form>
+
+<input style = "position:absolute; right:80px; top:20px;" formaction="" value="Login" name="login" type="button">
 
 <script type="text/javascript" src="restrictions.js"></script>
 <script type="text/javascript" src="ListFunctionality/wrongList.js"></script> 
