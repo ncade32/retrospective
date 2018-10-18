@@ -24,7 +24,7 @@ public class SubmitData extends HttpServlet {
 		response.setContentType("text/html");
 		
 		String [] wrong, well, improve; 
-		String test, teamNum, sprintNum, projName, query, wrongCommentsSplit, wellCommentsSplit, improveCommentsSplit;
+		String teamNum, sprintNum, projName, query, wrongCommentsSplit, wellCommentsSplit, improveCommentsSplit;
 		int id;
 		
 		teamNum = request.getParameter("teamNum").toString();

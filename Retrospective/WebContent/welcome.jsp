@@ -91,7 +91,7 @@
 </div>
 </form>
 
-<input style = "position:absolute; right:80px; top:20px;" formaction="" value="Login" name="login" type="button">
+<input style = "position:absolute; right:80px; top:20px;" formaction="loginPage.jsp" value="Login" name="login" type="button">
 
 <script type="text/javascript" src="restrictions.js"></script>
 <script type="text/javascript" src="ListFunctionality/wrongList.js"></script> 
