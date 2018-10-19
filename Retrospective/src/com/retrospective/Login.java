@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class Login
@@ -24,8 +25,7 @@ public class Login extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.setContentType("text/html");
-		
+
 		String userInput, passInput, user, pass;
 		
 		userInput = request.getParameter("user");
@@ -52,8 +52,14 @@ public class Login extends HttpServlet {
 			
 			if (userInput.equals(user) && passInput.equals(pass)) {
 				System.out.println("Login successful");
+				HttpSession session = request.getSession();
+				session.setAttribute("user", user);
+				response.sendRedirect("welcome.jsp");
+				return;
 			}else {
 				System.out.println("Login not successful");
+				response.sendRedirect("loginPage.jsp");
+				return;
 			}
 			
 	}catch (SQLException e) {

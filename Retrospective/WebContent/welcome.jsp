@@ -8,13 +8,21 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Retrospective</title>
+<title>Welcome To Retrospective</title>
 <link rel="stylesheet" href="style.css" type="text/css" media="screen">
 </head>
 <body>
 
 
 <%
+	response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+	response.setHeader("Pragma", "no-cache");
+	response.setHeader("Expires", "0");
+
+	if(session.getAttribute("user") == null){
+		response.sendRedirect("loginPage.jsp");
+	}
+
 	System.out.println("Welcome Page");
 	Connection conn = DbManager.connect();
 
@@ -90,8 +98,10 @@
 
 </div>
 </form>
+<form action="Logout" method = "post">
+	<input style = "position:absolute; right:80px; top:20px;" value="Logout" name="login" type = "submit">
+</form>
 
-<input style = "position:absolute; right:80px; top:20px;" formaction="loginPage.jsp" value="Login" name="login" type="button">
 
 <script type="text/javascript" src="restrictions.js"></script>
 <script type="text/javascript" src="ListFunctionality/wrongList.js"></script> 

@@ -11,6 +11,13 @@
 </head>
 <body>
 <%
+	response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+	response.setHeader("Pragma", "no-cache");
+	response.setHeader("Expires", "0");
+
+	if(session.getAttribute("user") == null){
+		response.sendRedirect("loginPage.jsp");
+	}
 	System.out.println("Verify Page");
 	Connection conn = DbManager.connect();
 	
@@ -20,17 +27,16 @@
 		System.out.println("Connection successful to verify info");
 	}
 	
-	String teamNum, projName, sprintNum, wrong, well, improve;
+	String uname, teamNum, projName, sprintNum, wrong, well, improve;
 	String [] wrongComments, wellComments, improveComments;
-	int id;
 	
-	id = GetData.getId(conn);
-	teamNum = GetData.getTeamNum(conn, id);
-	projName = GetData.getProjectName(conn, id);
-	sprintNum = GetData.getSprintNum(conn, id);
-	wrong = GetData.getWrongComments(conn, id);
-	well = GetData.getWellComments(conn, id);
-	improve = GetData.getImproveComments(conn, id);
+	uname = GetData.getUname(request);
+	projName = GetData.getProjectName(conn, uname);
+	sprintNum = GetData.getSprintNum(conn, uname);
+	teamNum = GetData.getTeamNum(conn, uname);
+	wrong = GetData.getWrongComments(conn, uname);
+	well = GetData.getWellComments(conn, uname);
+	improve = GetData.getImproveComments(conn, uname);
 	
 	GetData.closeConnection(conn);
 	
@@ -38,7 +44,14 @@
 	wellComments = GetData.splitComments(well);
 	improveComments = GetData.splitComments(improve);
 %>
-<form action="confirmed.jsp">
+<script type="text/javascript">
+function confirmed(){
+	window.alert("Retrospective Comments Saved");
+	return true;
+}
+</script>
+
+<form action="Confirmed" method="post">
 <div class="container">
 <table>
 	<tbody>
@@ -91,10 +104,14 @@
 			<%} %>
       </ul>
 
-	<input value="Done" name="submit" type="submit">
+	<input onClick = "return confirmed()" value="Done" name="submit" type="submit">
 	<input formaction="editInfo.jsp" value="Edit" name="edit" type="submit">
 </div>
 
+</form>
+
+<form action="Logout" method = "post">
+	<input style = "position:absolute; right:80px; top:20px;" value="Logout" name="login" type = "submit">
 </form>
 
 </body>

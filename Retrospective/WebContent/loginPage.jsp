@@ -4,26 +4,16 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Login</title>
+<title>Login Retrospective</title>
 </head>
 <body>
 
 <form action="Login" method = "post">
 
-<table>
-	<tbody>
-		<tr>
-			<td>Username: </td>
-			<td><input type = "text" id = "user" name = "user"></td>
-		</tr>
-		<tr>
-			<td>Password : </td>
-			<td><input type = "text" id = "pass" name = "pass"></td>	
-		</tr>
-	</tbody>
-</table>
+	Username : <input type = "text" id = "user" name = "user"><br>
+	Password : <input type = "password" id = "pass" name = "pass"><br>
 
-<input type = "submit" value = "Submit" id = "submit" name = "submit">
+	<input type = "submit" value = "Login" id = "login" name = "login">
 
 </form>
 

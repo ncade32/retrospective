@@ -13,6 +13,13 @@
 <body>
 
 <%
+	response.setHeader("Pragma", "no-cache");
+	response.setHeader("Expires", "0");response.setHeader("Pragma", "no-cache");
+	response.setHeader("Expires", "0");
+
+	if(session.getAttribute("user") == null){
+		response.sendRedirect("loginPage.jsp");
+	}
 	System.out.println("Edit Page");
 	Connection conn = DbManager.connect();
 
@@ -25,25 +32,23 @@
 	ArrayList<String> projNames = new ArrayList<String>();
 	projNames = GetData.getProjectNames(conn);
 	
-	int id;
-	String teamNum, projName, sprintNum, wrong, well, improve;
+	String uname, teamNum, projName, sprintNum, wrong, well, improve;
 	String [] wrongComments, wellComments, improveComments;
 	
-	id = GetData.getId(conn);
-	teamNum = GetData.getTeamNum(conn, id);
-	projName = GetData.getProjectName(conn, id);
-	sprintNum = GetData.getSprintNum(conn, id);
-	wrong = GetData.getWrongComments(conn, id);
-	well = GetData.getWellComments(conn, id);
-	improve = GetData.getImproveComments(conn, id);
-	GetData.deleteRow(conn, id);
+	uname = GetData.getUname(request);
+	teamNum = GetData.getTeamNum(conn, uname);
+	projName = GetData.getProjectName(conn, uname);
+	sprintNum = GetData.getSprintNum(conn, uname);
+	wrong = GetData.getWrongComments(conn, uname);
+	well = GetData.getWellComments(conn, uname);
+	improve = GetData.getImproveComments(conn, uname);
+	//GetData.deleteRow(conn, uname);
 	
 	GetData.closeConnection(conn);
 	
 	wrongComments = GetData.splitComments(wrong);
 	wellComments = GetData.splitComments(well);
 	improveComments = GetData.splitComments(improve);
-	System.out.println(wellComments[0]);
 %>
   
 <form name = "welcomeForm" Action="SubmitData" method = "post" onsubmit="return validateForm()" method="post">
@@ -121,6 +126,10 @@
 <input type = "submit" value = "Submit" id = "submit" name = "submit">
 
 </div>
+</form>
+
+<form action="Logout" method = "post">
+	<input style = "position:absolute; right:80px; top:20px;" value="Logout" name="login" type = "submit">
 </form>
 
 <script type="text/javascript" src="restrictions.js"></script>

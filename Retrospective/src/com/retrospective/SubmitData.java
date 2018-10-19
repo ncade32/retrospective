@@ -24,8 +24,8 @@ public class SubmitData extends HttpServlet {
 		response.setContentType("text/html");
 		
 		String [] wrong, well, improve; 
-		String teamNum, sprintNum, projName, query, wrongCommentsSplit, wellCommentsSplit, improveCommentsSplit;
-		int id;
+		String uname, teamNum, sprintNum, projName, query, wrongCommentsSplit, wellCommentsSplit, improveCommentsSplit;
+		
 		
 		teamNum = request.getParameter("teamNum").toString();
 		sprintNum = request.getParameter("sprintNum").toString();
@@ -48,17 +48,25 @@ public class SubmitData extends HttpServlet {
 		
 		try {
 			Statement st = conn.createStatement();
-			ResultSet rs = st.executeQuery("SELECT COUNT(*) FROM feedback");
-			rs.next();
-			id = rs.getInt(1);
-			id++;
-			query = "insert into feedback values('"+id+"','"+teamNum+"','"+projName+"','"+sprintNum+"','"+wrongCommentsSplit+"','"+wellCommentsSplit+"','"+improveCommentsSplit+"')";
-			st.execute(query);
-			System.out.println("Data entered for id: "+ id);
-			st.close();
-			response.sendRedirect("verify.jsp");
-			return;
-		} catch (SQLException e) {
+			uname = GetData.getUname(request);
+			ResultSet rs = st.executeQuery("select * from onlineUsers where user = '"+uname+"'");
+			if(!rs.next()) {
+				query = "insert into onlineUsers values('"+uname+"','"+teamNum+"','"+projName+"','"+sprintNum+"','"+wrongCommentsSplit+"','"+wellCommentsSplit+"','"+improveCommentsSplit+"')";
+				st.execute(query);
+				System.out.println("Data entered for username: "+ uname);
+				st.close();
+				response.sendRedirect("verify.jsp");
+				return;
+			}else {
+				GetData.deleteRow(conn, uname);
+				query = "insert into onlineUsers values('"+uname+"','"+teamNum+"','"+projName+"','"+sprintNum+"','"+wrongCommentsSplit+"','"+wellCommentsSplit+"','"+improveCommentsSplit+"')";
+				st.execute(query);
+				System.out.println("Data entered for " + uname);
+				st.close();
+				response.sendRedirect("verify.jsp");
+				return;
+			}
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
