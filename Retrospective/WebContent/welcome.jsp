@@ -37,7 +37,7 @@
 	GetData.closeConnection(conn);
 %>
   
-<form name = "welcomeForm" Action="SubmitData" method = "post" onsubmit="return validateForm()" method="post">
+<form name = "welcomeForm" Action="SubmitData" method = "post" onsubmit="return validateWelcomeForm()" method="post">
 <div class="container">
 <table>
 	<tbody>

@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Login Retrospective</title>
+<title>Retrospective Login</title>
 </head>
 <body>
 
@@ -14,6 +14,7 @@
 	Password : <input type = "password" id = "pass" name = "pass"><br>
 
 	<input type = "submit" value = "Login" id = "login" name = "login">
+	<input formaction = "register.jsp" type = "submit" value = "Register" id = "register" name = "register">
 
 </form>
 

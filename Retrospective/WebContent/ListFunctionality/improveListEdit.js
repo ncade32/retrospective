@@ -47,6 +47,20 @@ var createNewImproveItemEdit=function(taskString){
 	return listItem;
 }
 
+var addImproveItemEdit=function(){
+	console.log("Add Task...");
+	//Create a new list item with the text from the #new-task:
+	var listItem=createNewImproveItemEdit(improveItemInputEdit.value);
+	
+	//Append listItem to completeTaskHolderEdit
+	improveTaskHolderEdit.appendChild(listItem);
+	bindTaskEventsImprove(listItem, addImproveItemEdit);
+
+	improveItemInputEdit.value="";
+	
+	
+}
+
 //Edit an existing task.
 
 var editImproveItemEdit=function(){

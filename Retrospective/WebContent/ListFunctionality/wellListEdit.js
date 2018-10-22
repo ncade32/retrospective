@@ -5,7 +5,6 @@
 var wellItemInputEdit= document.getElementById("wellNew-task2");//Add a new task.
 var wellAddButtonEdit=document.getElementById("addWell");//first button
 var completeTaskHolderEdit= document.getElementById("complete-tasks2");//ul of #incomplete-tasks
-var wellHolderChild=document.getElementById("content").firstChild;
 
 
 //New task list item

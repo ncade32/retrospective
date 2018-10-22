@@ -51,7 +51,7 @@
 	improveComments = GetData.splitComments(improve);
 %>
   
-<form name = "welcomeForm" Action="SubmitData" method = "post" onsubmit="return validateForm()" method="post">
+<form name = "editForm" Action="SubmitData" method = "post" onsubmit="return validateEditForm()" method="post">
 <div class="container">
 <table>
 	<tbody>
@@ -94,7 +94,7 @@
 
       <ul id="incomplete-tasks2">
       		<%for(int i = 0; i < wrongComments.length; i++){ %>
-      			<li><label><%= wrongComments[i] %></label><input value = <%= wrongComments[i] %> name = "wrong" type="text"><button type = "button" class="edit">Edit</button><button type = "button" class="delete">Delete</button></li>
+      			<li><textarea name = "wrong"><%= wrongComments[i]%></textarea><button type = "button" class="edit">Edit</button><button type = "button" class="delete">Delete</button></li>
        		<%} %>
       </ul>
       
@@ -105,7 +105,7 @@
    
       <ul id="complete-tasks2">
       		<%for(int i = 0; i < wellComments.length; i++){ %>
-      				<li><label><%= wellComments[i] %></label><input value = <%= wellComments[i] %> name = "well" type="text"><button type = "button" class="edit">Edit</button><button type = "button" class="delete">Delete</button></li>
+      				<li><textarea name = "well"><%= wellComments[i]%></textarea><button type = "button" class="edit">Edit</button><button type = "button" class="delete">Delete</button></li>
        		<%} %>
        		
       </ul>
@@ -117,7 +117,7 @@
      
       <ul id="improve-tasks2">
       		<%for(int i = 0; i < improveComments.length; i++){ %>
-      				<li><label><%= improveComments[i] %></label><input value = <%= improveComments[i] %> name = "improve" type="text"><button type = "button" class="edit">Edit</button><button type = "button" class="delete">Delete</button></li>
+      				<li><textarea name = "improve"><%= improveComments[i]%></textarea><button type = "button" class="edit">Edit</button><button type = "button" class="delete">Delete</button></li>
        		<%} %>
       </ul>
     
