@@ -10,12 +10,16 @@
 
 <script type="text/javascript">
 function isValid(){
-	var user = document.getElementById("user");
-	console.log (<%= Register.userValid%>);
+	var user = document.getElementById("userReg");
 	
 	if(<%= Register.userValid%> == false){
 		window.alert("Username already taken");
 		user.value = "";
+		<%Register.userValid = true;%>
+		return false;
+	}else if (<%= Register.codeValid%> == false){
+		window.alert("Incorrect Scrum Code Entered");
+		<%Register.codeValid = true;%>
 		return false;
 	}
 }
@@ -36,7 +40,7 @@ function complete(){
 </script>
 
 <form name = "registerForm" Action="Register" onsubmit = "return validateRegForm()" method = "post">
-<table>
+<table id = "regTable">
 	<tbody>
 		<tr>
 			<td>First Name: </td>
@@ -56,11 +60,15 @@ function complete(){
 		</tr>
 		<tr>
 			<td>Password: </td>
-			<td><input autocomplete="new-password" type="password" id = "passReg" name="passReg"><input type="checkbox" value="Show" id="showPass1">Show</td>
+			<td><input autocomplete="new-password" type="password" id = "passReg" name="passReg"><input onClick = "showPassword('passReg', 'showPass1')" type="checkbox" value="Show" id="showPass1">Show</td>
 		</tr>
 		<tr>
 			<td>Confirm Password: </td>
-			<td><input type="password" id = "confirmPass" ><input type="checkbox" value="Show" id="showPass2">Show</td>	
+			<td><input type="password" id = "confirmPass" ><input onClick = "showPassword('confirmPass', 'showPass2')" type="checkbox" value="Show" id="showPass2">Show</td>	
+		</tr>
+		<tr>
+			<td>Scrum Master</td>
+			<td><input onClick = "scrumCode()" type="checkbox"  id="scrumMaster"></td>	
 		</tr>
 	</tbody>
 </table>

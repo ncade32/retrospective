@@ -3,8 +3,8 @@ package com.retrospective;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -25,8 +25,14 @@ public class Login extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		String userInput, passInput, user, pass;
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html");
+		
+		String userInput, passInput;
+		ArrayList<String> users = new ArrayList<String>();
+		ArrayList<String> passwords = new ArrayList<String>();
+		int scrum;
+		boolean correctUser = true;
 		
 		userInput = request.getParameter("user");
 		passInput = request.getParameter("pass");
@@ -41,28 +47,48 @@ public class Login extends HttpServlet {
 		
 		try {
 			
-			
+		
 			Statement st = conn.createStatement();
 			ResultSet rs = st.executeQuery("SELECT user FROM admin");
 			rs.next();
-			user = rs.getString(1);
+			while(rs.next()) {
+				users.add(rs.getString(1));
+			}
 			rs = st.executeQuery("SELECT pass FROM admin");
 			rs.next();
-			pass = rs.getString(1);
-			
-			if (userInput.equals(user) && passInput.equals(pass)) {
+			while(rs.next()) {
+				passwords.add(rs.getString(1));
+			}
+			for(int i = 0; i < users.size(); i++) {
+				if(userInput.equals(users.get(i))) {
+					for(i = 0; i < passwords.size(); i++) {
+						if(passInput.equals(passwords.get(i))) {
+							correctUser = true;
+						}
+					}
+				}
+			}
+			if (correctUser) {
 				System.out.println("Login successful");
 				HttpSession session = request.getSession();
-				session.setAttribute("user", user);
-				response.sendRedirect("welcome.jsp");
-				return;
+				session.setAttribute("user", userInput);
+				rs = st.executeQuery("select scrum from admin where user = '"+userInput+"';");
+				rs.next();
+				scrum = rs.getInt(1);
+				if (scrum == 0) {
+					response.sendRedirect("welcome.jsp");
+					return;
+				}else {
+					response.sendRedirect("welcomeScrum.jsp");
+					return;
+				}
 			}else {
 				System.out.println("Login not successful");
 				response.sendRedirect("loginPage.jsp");
 				return;
 			}
 			
-	}catch (SQLException e) {
+	}catch (Exception e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}finally {

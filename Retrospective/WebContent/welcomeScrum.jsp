@@ -1,4 +1,3 @@
-<%@page import="com.retrospective.DbManager"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import= "com.retrospective.*" %>
@@ -8,12 +7,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Welcome To Retrospective</title>
+<title>Welcome Scrum Master</title>
 <link rel="stylesheet" href="style.css" type="text/css" media="screen">
 </head>
 <body>
-
-
 <%
 	response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
 	response.setHeader("Pragma", "no-cache");
@@ -24,7 +21,7 @@
 		return;
 	}
 	
-	System.out.println("Welcome Page");
+	System.out.println("Scrum Welcome Page");
 	Connection conn = DbManager.connect();
 
 	if (conn == null){
@@ -110,5 +107,5 @@
 <script type="text/javascript" src="ListFunctionality/improveList.js"></script>
 
 </body>
-
+</body>
 </html>

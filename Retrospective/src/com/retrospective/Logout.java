@@ -24,6 +24,7 @@ public class Logout extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html");
 		
 		Connection conn = DbManager.connect();
@@ -38,6 +39,7 @@ public class Logout extends HttpServlet {
 			session.invalidate();
 			System.out.println("logged out");
 			response.sendRedirect("loginPage.jsp");
+			return;
 		
 		}else {
 			HttpSession session = request.getSession();
@@ -45,11 +47,14 @@ public class Logout extends HttpServlet {
 			session.invalidate();
 			System.out.println("logged out");
 			response.sendRedirect("loginPage.jsp");
+			return;
 			}
 		}catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		response.sendRedirect("loginPage.jsp");
+		return;
 	}
 
 }

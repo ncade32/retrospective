@@ -20,6 +20,7 @@ public class Register extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	public static boolean userValid = true;
+	public static boolean codeValid = true;
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
@@ -31,14 +32,16 @@ public class Register extends HttpServlet {
 			System.out.println("Connection successful to create new user");
 		}
 		
-		String user, pass, first, last, email, query;
+		String user, pass, first, last, email, query, scrumCode;
 		
 		first = request.getParameter("first");
 		last = request.getParameter("last");
 		email = request.getParameter("email");
 		user = request.getParameter("userReg");
 		pass = request.getParameter("passReg");
-		ArrayList<String> dbUsers = new ArrayList<String>();
+		scrumCode = request.getParameter("code");
+		int isScrum = 1;
+		int notScrum = 0;
 		Statement st;
 		
 		try {
@@ -46,19 +49,32 @@ public class Register extends HttpServlet {
 			ResultSet rs = st.executeQuery("select user from admin;");
 			
 			while(rs.next()) {
-				dbUsers.add(rs.getString(1));
-			}
-			
-			for(int i = 0; i < dbUsers.size(); i++) {
-				if (user.equals(dbUsers.get(i))) {
+				if (user.equals(rs.getString(1))) {
 					userValid = false;
 					System.out.println("Error : Username taken");
 					response.sendRedirect("register.jsp");
 					return;
-					
 				}
 			}
-			query = "insert into admin values('"+user+"','"+pass+"','"+first+"','"+last+"','"+email+"');";
+			if (scrumCode != null) {
+				codeValid = false;
+				rs = st.executeQuery("select codes from scrumCodes;");
+				while(rs.next()) {
+					if(scrumCode.equals(rs.getString(1))) {
+						codeValid = true;
+					}
+				}
+				if (!codeValid) {
+					System.out.println("Error : Incorrect Scrum Code");
+					response.sendRedirect("register.jsp");
+					return;
+				}
+			}
+			if(scrumCode == null) {
+				query = "insert into admin values('"+user+"','"+pass+"','"+first+"','"+last+"','"+email+"','"+notScrum+"');";
+			}else {
+				query = "insert into admin values('"+user+"','"+pass+"','"+first+"','"+last+"','"+email+"','"+isScrum+"');";
+			}
 			st.execute(query);
 			System.out.println("New user created");
 			st.close();
