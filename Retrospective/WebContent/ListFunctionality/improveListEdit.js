@@ -2,13 +2,13 @@
  * 
  */
 
-var improveItemInputEdit=document.getElementById("improveNew-task2");//Add a new task.
-var improveAddButtonEdit=document.getElementById("addImprove");//first button
-var improveTaskHolderEdit=document.getElementById("improve-tasks2");//ul of #incomplete-tasks
+let improveItemInputEdit=document.getElementById("improveNew-task2");//Add a new task.
+let improveAddButtonEdit=document.getElementById("addImprove");//first button
+let improveTaskHolderEdit=document.getElementById("improve-tasks2");//ul of #incomplete-tasks
 
 
 //New task list item
-var createNewImproveItemEdit=function(taskString){
+let createNewImproveItemEdit=function(taskString){
 
 
 	var listItem=document.createElement("li");
@@ -47,7 +47,7 @@ var createNewImproveItemEdit=function(taskString){
 	return listItem;
 }
 
-var addImproveItemEdit=function(){
+let addImproveItemEdit=function(){
 	console.log("Add Task...");
 	//Create a new list item with the text from the #new-task:
 	var listItem=createNewImproveItemEdit(improveItemInputEdit.value);
@@ -63,7 +63,7 @@ var addImproveItemEdit=function(){
 
 //Edit an existing task.
 
-var editImproveItemEdit=function(){
+let editImproveItemEdit=function(){
 	console.log("Edit Task...");
 	console.log("Change 'edit' to 'save'");
 
@@ -92,7 +92,7 @@ var editImproveItemEdit=function(){
 
 
 //Delete task.
-var deleteImproveItemEdit=function(){
+let deleteImproveItemEdit=function(){
 		console.log("Delete Task...");
 
 		var listItem=this.parentNode;
@@ -102,9 +102,9 @@ var deleteImproveItemEdit=function(){
 
 }
 
-var ajaxRequest=function(){
+/*let ajaxRequest=function(){
 	console.log("AJAX Request");
-}
+}*/
 
 //The glue to hold it all together.
 
@@ -114,7 +114,7 @@ improveAddButtonEdit.addEventListener("click",addImproveItemEdit)
 //improveAddButtonEdit.addEventListener("click",ajaxRequest);
 
 
-var bindTaskEventsImprove=function(taskListItem,checkBoxEventHandler){
+let bindTaskEventsImprove=function(taskListItem,checkBoxEventHandler){
 	console.log("bind list item events");
 //select ListItems children
 	var editButton=taskListItem.querySelector("button.edit");

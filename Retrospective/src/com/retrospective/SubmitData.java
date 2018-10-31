@@ -25,7 +25,7 @@ public class SubmitData extends HttpServlet {
 		
 		String [] wrong, well, improve; 
 		String uname, teamNum, sprintNum, projName, query, wrongCommentsSplit, wellCommentsSplit, improveCommentsSplit;
-		
+		int scrum;
 		
 		teamNum = request.getParameter("teamNum").toString();
 		sprintNum = request.getParameter("sprintNum").toString();
@@ -47,11 +47,14 @@ public class SubmitData extends HttpServlet {
 		}
 		
 		try {
-			Statement st = conn.createStatement();
 			uname = GetData.getUname(request);
-			ResultSet rs = st.executeQuery("select * from onlineUsers where user = '"+uname+"'");
+			Statement st = conn.createStatement();
+			ResultSet rs = st.executeQuery("select scrum from admin where user = '"+uname+"';");
+			rs.next();
+			scrum = rs.getInt(1);
+			rs = st.executeQuery("select * from onlineUsers where user = '"+uname+"'");
 			if(!rs.next()) {
-				query = "insert into onlineUsers values('"+uname+"','"+teamNum+"','"+projName+"','"+sprintNum+"','"+wrongCommentsSplit+"','"+wellCommentsSplit+"','"+improveCommentsSplit+"')";
+				query = "insert into onlineUsers values('"+uname+"','"+teamNum+"','"+projName+"','"+sprintNum+"','"+wrongCommentsSplit+"','"+wellCommentsSplit+"','"+improveCommentsSplit+"','"+scrum+"')";
 				st.execute(query);
 				System.out.println("Data entered for username: "+ uname);
 				st.close();
@@ -59,7 +62,7 @@ public class SubmitData extends HttpServlet {
 				return;
 			}else {
 				GetData.deleteRow(conn, uname);
-				query = "insert into onlineUsers values('"+uname+"','"+teamNum+"','"+projName+"','"+sprintNum+"','"+wrongCommentsSplit+"','"+wellCommentsSplit+"','"+improveCommentsSplit+"')";
+				query = "insert into onlineUsers values('"+uname+"','"+teamNum+"','"+projName+"','"+sprintNum+"','"+wrongCommentsSplit+"','"+wellCommentsSplit+"','"+improveCommentsSplit+"','"+scrum+"')";
 				st.execute(query);
 				System.out.println("Data entered for " + uname);
 				st.close();

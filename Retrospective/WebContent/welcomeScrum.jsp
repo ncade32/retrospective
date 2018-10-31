@@ -15,11 +15,11 @@
 	response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
 	response.setHeader("Pragma", "no-cache");
 	response.setHeader("Expires", "0");
-
+/*
 	if(session.getAttribute("user") == null){
 		response.sendRedirect("loginPage.jsp");
 		return;
-	}
+	}*/
 	
 	System.out.println("Scrum Welcome Page");
 	Connection conn = DbManager.connect();
@@ -99,6 +99,9 @@
 <form action="Logout" method = "post">
 	<input style = "position:absolute; right:80px; top:20px;" value="Logout" name="login" type = "submit">
 </form>
+
+	<input  onclick = "window.location.href = 'retroCommentsByName.jsp';" style = "position:absolute; left:80px; top:20px;" value="Retrospective Comments" name="retroComments" type = "button">
+
 
 
 <script type="text/javascript" src="restrictions.js"></script>

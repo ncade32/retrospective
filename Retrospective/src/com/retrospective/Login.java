@@ -19,6 +19,8 @@ import javax.servlet.http.HttpSession;
 @WebServlet("/Login")
 public class Login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
+	public static boolean access = true;
        
    
 	/**
@@ -32,7 +34,7 @@ public class Login extends HttpServlet {
 		ArrayList<String> users = new ArrayList<String>();
 		ArrayList<String> passwords = new ArrayList<String>();
 		int scrum;
-		boolean correctUser = true;
+		boolean correctUser = false;
 		
 		userInput = request.getParameter("user");
 		passInput = request.getParameter("pass");
@@ -50,17 +52,15 @@ public class Login extends HttpServlet {
 		
 			Statement st = conn.createStatement();
 			ResultSet rs = st.executeQuery("SELECT user FROM admin");
-			rs.next();
 			while(rs.next()) {
 				users.add(rs.getString(1));
 			}
-			rs = st.executeQuery("SELECT pass FROM admin");
-			rs.next();
-			while(rs.next()) {
-				passwords.add(rs.getString(1));
-			}
 			for(int i = 0; i < users.size(); i++) {
 				if(userInput.equals(users.get(i))) {
+					rs = st.executeQuery("SELECT pass FROM admin where user = '"+userInput+"';");
+					while(rs.next()) {
+						passwords.add(rs.getString(1));
+					}
 					for(i = 0; i < passwords.size(); i++) {
 						if(passInput.equals(passwords.get(i))) {
 							correctUser = true;
@@ -84,6 +84,7 @@ public class Login extends HttpServlet {
 				}
 			}else {
 				System.out.println("Login not successful");
+				access = false;
 				response.sendRedirect("loginPage.jsp");
 				return;
 			}

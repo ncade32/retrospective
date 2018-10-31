@@ -73,7 +73,7 @@ function validateRegForm(){
 	var first = document.forms["registerForm"]["first"].value;
 	var last = document.forms["registerForm"]["last"].value;
 	var scrum = document.forms["registerForm"]["scrumMaster"];
-	var code = document.forms["registerForm"]["code"].value;
+	
 	
 	if (user == ""){
 		window.alert("A valid username must be entered");
@@ -103,35 +103,24 @@ function validateRegForm(){
 		window.alert("A last name must be entered");
 		return false;
 	}
-	else if(scrum.checked && code == ""){
-		window.alert("A scrum code must be entered");
-		return false;
+	else if(scrum.checked){
+		var code = document.forms["registerForm"]["code"].value;
+		if (code == ""){
+			window.alert("A scrum code must be entered");
+			return false;
+		}
 	}
 }
 
 function showPassword(pass, checkbox){
 	var showPass = document.getElementById(checkbox);
-	var showPass2 = document.getElementById("showPass2");
-	var showCode = document.getElementById("showCode");
 	var password = document.getElementById(pass);
-	var passReg = document.getElementById("passReg");
-	var code = document.getElementById("code");
 	
 	if (showPass.checked){
 		password.type = "text";
 	}else {
 		password.type = "password";
 	}
-	/*if (showPass2.checked){
-		confirmPass.type = "text";
-	}else{
-		confirmPass.type = "password";
-	}
-	if (showCode.checked){
-		code.type = "text";
-	}else{
-		code.type = "password";
-	}*/
 }
 
 function scrumCode(){

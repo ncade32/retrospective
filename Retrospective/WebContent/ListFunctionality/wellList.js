@@ -1,15 +1,15 @@
-"use strict";
+
 /**
  * 
  */
-var wellTaskInput= document.getElementById("wellNew-task");//Add a new task.
-var wellAddButton=document.getElementsByTagName("button")[1];//first button
-var completeTaskHolder= document.getElementById("complete-tasks");//ul of #incomplete-tasks
+let wellTaskInput= document.getElementById("wellNew-task");//Add a new task.
+let wellAddButton=document.getElementsByTagName("button")[1];//first button
+let completeTaskHolder= document.getElementById("complete-tasks");//ul of #incomplete-tasks
 
 
 
 //New task list item
-var createNewWellItem=function(taskString){
+let createNewWellItem=function(taskString){
 
 
 	var listItem=document.createElement("li");
@@ -50,7 +50,7 @@ var createNewWellItem=function(taskString){
 
 
 
-var addWellItem=function(){
+let addWellItem=function(){
 	console.log("Add Task...");
 	//Create a new list item with the text from the #new-task:
 	var listItem=createNewWellItem(wellTaskInput.value);
@@ -65,7 +65,7 @@ var addWellItem=function(){
 
 //Edit an existing task.
 
-var editWellItem=function(){
+let editWellItem=function(){
 	console.log("Edit Task...");
 	console.log("Change 'edit' to 'save'");
 
@@ -94,7 +94,7 @@ var editWellItem=function(){
 
 
 //Delete task.
-var deleteWellItem= function(){
+let deleteWellItem= function(){
 		console.log("Delete Task...");
 
 		var listItem=this.parentNode;
@@ -104,9 +104,9 @@ var deleteWellItem= function(){
 
 }
 
-var ajaxRequest=function(){
+/*let ajaxRequest=function(){
 	console.log("AJAX Request");
-}
+}*/
 
 //The glue to hold it all together.
 
@@ -116,7 +116,7 @@ wellAddButton.addEventListener("click",addWellItem);
 //wellAddButton.addEventListener("click",ajaxRequest);
 
 
-var bindTaskEventsWell =function(taskListItem,checkBoxEventHandler){
+let bindTaskEventsWell =function(taskListItem,checkBoxEventHandler){
 	console.log("bind list item events");
 //select ListItems children
 	var editButton=taskListItem.querySelector("button.edit");

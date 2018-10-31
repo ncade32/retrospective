@@ -1,14 +1,14 @@
-"use strict";
+
 /**
  * 
  */
-var wrongItemInput=document.getElementById("new-task");//Add a new task.
-var wrongAddButton=document.getElementsByTagName("button")[0];//first button
-var incompleteTaskHolder=document.getElementById("incomplete-tasks");//ul of #incomplete-tasks
+let wrongItemInput=document.getElementById("new-task");//Add a new task.
+let wrongAddButton=document.getElementsByTagName("button")[0];//first button
+let incompleteTaskHolder=document.getElementById("incomplete-tasks");//ul of #incomplete-tasks
 
  
 //New task list item
-var createNewWrongItem=function(taskString){
+let createNewWrongItem=function(taskString){
 
 	var listItem=document.createElement("li");
 	
@@ -48,7 +48,7 @@ var createNewWrongItem=function(taskString){
 
 
 
-var addWrongItem=function(){
+let addWrongItem=function(){
 	console.log("Add Task...");
 	//Create a new list item with the text from the #new-task:
 	var listItem=createNewWrongItem(wrongItemInput.value);
@@ -63,19 +63,19 @@ var addWrongItem=function(){
 
 //Edit an existing task.
 
-var editTask=function(){
+let editTask=function(){
 console.log("Edit Task...");
 console.log("Change 'edit' to 'save'");
 
-var listItem=this.parentNode;
+let listItem=this.parentNode;
 
-var editButton=listItem.querySelector("button.edit");
-var editInput = listItem.querySelector('textarea');
+let editButton=listItem.querySelector("button.edit");
+let editInput = listItem.querySelector('textarea');
 
 editButton.innerText = "Save";
 editInput.readOnly = false;
 
-var containsClass=listItem.classList.contains("editMode");
+let containsClass=listItem.classList.contains("editMode");
 		//If class of the parent is .editmode
 		if(containsClass){
 
@@ -92,7 +92,7 @@ var containsClass=listItem.classList.contains("editMode");
 
 
 //Delete task.
-var deleteWrongItem=function(){
+let deleteWrongItem=function(){
 		console.log("Delete Task...");
 
 		var listItem=this.parentNode;
@@ -102,9 +102,9 @@ var deleteWrongItem=function(){
 
 }
 
-var ajaxRequest=function(){
+/*let ajaxRequest=function(){
 	console.log("AJAX Request");
-}
+}*/
 
 //The glue to hold it all together.
 
@@ -114,7 +114,7 @@ wrongAddButton.addEventListener("click",addWrongItem);
 //wrongAddButton.addEventListener("click",ajaxRequest);
 
 
-var bindTaskEventsWrong =function(taskListItem,checkBoxEventHandler){
+let bindTaskEventsWrong =function(taskListItem,checkBoxEventHandler){
 	console.log("bind list item events");
 //select ListItems children
 	var editButton=taskListItem.querySelector("button.edit");

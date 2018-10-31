@@ -1,12 +1,12 @@
 /**
  * 
  */
-var wrongItemInputEdit=document.getElementById("new-task2");//Add a new task.
-var wrongAddButtonEdit=document.getElementById("addWrong");//first button
-var incompleteTaskHolderEdit=document.getElementById("incomplete-tasks2");//ul of #incomplete-tasks
+let wrongItemInputEdit=document.getElementById("new-task2");//Add a new task.
+let wrongAddButtonEdit=document.getElementById("addWrong");//first button
+let incompleteTaskHolderEdit=document.getElementById("incomplete-tasks2");//ul of #incomplete-tasks
  
 //New task list item
-var createNewWrongItemEdit=function(taskString){
+let createNewWrongItemEdit=function(taskString){
 
 
 	var listItem=document.createElement("li");
@@ -47,7 +47,7 @@ var createNewWrongItemEdit=function(taskString){
 
 
 
-var addWrongItemEdit=function(){
+let addWrongItemEdit=function(){
 	console.log("Add Task...");
 	//Create a new list item with the text from the #new-task:
 	var listItem=createNewWrongItemEdit(wrongItemInputEdit.value);
@@ -62,7 +62,7 @@ var addWrongItemEdit=function(){
 
 //Edit an existing task.
 
-var editTask=function(){
+let editTask=function(){
 	console.log("Edit Task...");
 	console.log("Change 'edit' to 'save'");
 
@@ -91,7 +91,7 @@ var editTask=function(){
 
 
 //Delete task.
-var deleteWrongItemEdit=function(){
+let deleteWrongItemEdit=function(){
 		console.log("Delete Task...");
 
 		var listItem=this.parentNode;
@@ -101,9 +101,9 @@ var deleteWrongItemEdit=function(){
 
 }
 
-var ajaxRequest=function(){
+/*let ajaxRequest=function(){
 	console.log("AJAX Request");
-}
+}*/
 
 //The glue to hold it all together.
 
@@ -113,7 +113,7 @@ wrongAddButtonEdit.addEventListener("click",addWrongItemEdit);
 //wrongAddButtonEdit.addEventListener("click",ajaxRequest);
 
 
-var bindTaskEventsWrong=function(taskListItem,checkBoxEventHandler){
+let bindTaskEventsWrong=function(taskListItem,checkBoxEventHandler){
 	console.log("bind list item events");
 //select ListItems children
 	var editButton=taskListItem.querySelector("button.edit");

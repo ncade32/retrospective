@@ -1,14 +1,14 @@
-"use strict";
+
 /**
  * 
  */
-var improveTaskInput=document.getElementById("improveNew-task");//Add a new task.
-var improveAddButton=document.getElementsByTagName("button")[2];//first button
-var improveTaskHolder=document.getElementById("improve-tasks");//ul of #incomplete-tasks
+let improveTaskInput=document.getElementById("improveNew-task");//Add a new task.
+let improveAddButton=document.getElementsByTagName("button")[2];//first button
+let improveTaskHolder=document.getElementById("improve-tasks");//ul of #incomplete-tasks
 
 
 //New task list item
-var createNewImproveItem=function(taskString){
+let createNewImproveItem=function(taskString){
 
 
 	var listItem=document.createElement("li");
@@ -47,7 +47,7 @@ var createNewImproveItem=function(taskString){
 	return listItem;
 }
 
-var addImproveItem=function(){
+let addImproveItem=function(){
 	console.log("Add Task...");
 	//Create a new list item with the text from the #new-task:
 	var listItem=createNewImproveItem(improveTaskInput.value);
@@ -63,7 +63,7 @@ var addImproveItem=function(){
 
 //Edit an existing task.
 
-var editImproveItem=function(){
+let editImproveItem=function(){
 	console.log("Edit Task...");
 	console.log("Change 'edit' to 'save'");
 
@@ -92,7 +92,7 @@ var editImproveItem=function(){
 
 
 //Delete task.
-var deleteImproveItem=function(){
+let deleteImproveItem=function(){
 		console.log("Delete Task...");
 
 		var listItem=this.parentNode;
@@ -102,9 +102,9 @@ var deleteImproveItem=function(){
 
 }
 
-var ajaxRequest=function(){
+/*let ajaxRequest=function(){
 	console.log("AJAX Request");
-}
+}*/
 
 //The glue to hold it all together.
 
@@ -114,7 +114,7 @@ improveAddButton.addEventListener("click",addImproveItem)
 //improveAddButton.addEventListener("click",ajaxRequest);
 
 
-var bindTaskEventsImprove =function(taskListItem,checkBoxEventHandler){
+let bindTaskEventsImprove =function(taskListItem,checkBoxEventHandler){
 	console.log("bind list item events");
 //select ListItems children
 	var editButton=taskListItem.querySelector("button.edit");

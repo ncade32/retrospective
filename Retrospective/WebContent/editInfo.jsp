@@ -36,12 +36,12 @@
 	String [] wrongComments, wellComments, improveComments;
 	
 	uname = GetData.getUname(request);
-	teamNum = GetData.getTeamNum(conn, uname);
-	projName = GetData.getProjectName(conn, uname);
-	sprintNum = GetData.getSprintNum(conn, uname);
-	wrong = GetData.getWrongComments(conn, uname);
-	well = GetData.getWellComments(conn, uname);
-	improve = GetData.getImproveComments(conn, uname);
+	teamNum = GetData.getTeamNumByUser(conn, uname);
+	projName = GetData.getProjectNameByUser(conn, uname);
+	sprintNum = GetData.getSprintNumByUser(conn, uname);
+	wrong = GetData.getWrongCommentsByUser(conn, uname);
+	well = GetData.getWellCommentsByUser(conn, uname);
+	improve = GetData.getImproveCommentsByUser(conn, uname);
 	//GetData.deleteRow(conn, uname);
 	
 	GetData.closeConnection(conn);

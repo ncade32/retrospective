@@ -2,6 +2,7 @@ package com.retrospective;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.Statement;
 
 import javax.servlet.ServletException;
@@ -34,12 +35,19 @@ public class Confirmed extends HttpServlet {
 			String uname = GetData.getUname(request);
 			
 			Statement st = conn.createStatement();
-			String query = "insert into feedback (user, teamNum, projectName, sprintNum, wrongInfo, wellInfo, improveInfo) select user, teamNum, projectName, sprintNum, wrongInfo, wellInfo, improveInfo from onlineUsers where user = '"+uname+"'";
+			String query = "insert into feedback (user, teamNum, projectName, sprintNum, wrongInfo, wellInfo, improveInfo, scrum) select user, teamNum, projectName, sprintNum, wrongInfo, wellInfo, improveInfo, scrum from onlineUsers where user = '"+uname+"'";
 			st.execute(query);
 			System.out.println("Data entered in feedback table for " + uname);
 			GetData.deleteRow(conn, uname);
-			response.sendRedirect("welcome.jsp");
-			return;
+			ResultSet rs = st.executeQuery("select scrum from feedback where user = '"+uname+"';");
+			rs.next();
+			if(rs.getInt(1) == 0) {
+				response.sendRedirect("welcome.jsp");
+				return;
+			}else {
+				response.sendRedirect("welcomeScrum.jsp");
+				return;
+			}
 		}catch(Exception e) {
 			e.printStackTrace();
 		}

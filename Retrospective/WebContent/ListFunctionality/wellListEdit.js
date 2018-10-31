@@ -2,13 +2,13 @@
  * 
  */
 
-var wellItemInputEdit= document.getElementById("wellNew-task2");//Add a new task.
-var wellAddButtonEdit=document.getElementById("addWell");//first button
-var completeTaskHolderEdit= document.getElementById("complete-tasks2");//ul of #incomplete-tasks
+let wellItemInputEdit= document.getElementById("wellNew-task2");//Add a new task.
+let wellAddButtonEdit=document.getElementById("addWell");//first button
+let completeTaskHolderEdit= document.getElementById("complete-tasks2");//ul of #incomplete-tasks
 
 
 //New task list item
-var createNewWellItemEdit=function(taskString){
+let createNewWellItemEdit=function(taskString){
 
 
 	var listItem=document.createElement("li");
@@ -49,7 +49,7 @@ var createNewWellItemEdit=function(taskString){
 
 
 
-var addWellItemEdit=function(){
+let addWellItemEdit=function(){
 	console.log("Add Task...");
 	//Create a new list item with the text from the #new-task:
 	var listItem=createNewWellItemEdit(wellItemInputEdit.value);
@@ -65,7 +65,7 @@ var addWellItemEdit=function(){
 
 //Edit an existing task.
 
-var editWellItemEdit=function(){
+let editWellItemEdit=function(){
 	console.log("Edit Task...");
 	console.log("Change 'edit' to 'save'");
 
@@ -94,7 +94,7 @@ var editWellItemEdit=function(){
 
 
 //Delete task.
-var deleteWellItemEdit= function(){
+let deleteWellItemEdit= function(){
 		console.log("Delete Task...");
 
 		var listItem=this.parentNode;
@@ -104,9 +104,9 @@ var deleteWellItemEdit= function(){
 
 }
 
-var ajaxRequest=function(){
+/*let ajaxRequest=function(){
 	console.log("AJAX Request");
-}
+}*/
 
 //The glue to hold it all together.
 
@@ -116,7 +116,7 @@ wellAddButtonEdit.addEventListener("click",addWellItemEdit);
 //wellItemInputEdit.addEventListener("click",ajaxRequest);
 
 
-var bindTaskEventsWell=function(taskListItem,checkBoxEventHandler){
+let bindTaskEventsWell=function(taskListItem,checkBoxEventHandler){
 	console.log("bind list item events");
 //select ListItems children
 	var editButton=taskListItem.querySelector("button.edit");
