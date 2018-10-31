@@ -66,7 +66,6 @@ public class Register extends HttpServlet {
 				}
 				if (!codeValid) {
 					System.out.println("Error : Incorrect Scrum Code");
-					response.sendRedirect("register.jsp");
 					return;
 				}
 			}
