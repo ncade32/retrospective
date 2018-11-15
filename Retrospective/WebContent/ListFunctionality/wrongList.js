@@ -3,7 +3,7 @@
  * 
  */
 let wrongItemInput=document.getElementById("new-task");//Add a new task.
-let wrongAddButton=document.getElementsByTagName("button")[0];//first button
+let wrongAddButton=document.getElementsByTagName("button")[1];//first button
 let incompleteTaskHolder=document.getElementById("incomplete-tasks");//ul of #incomplete-tasks
 
  
@@ -22,13 +22,16 @@ let createNewWrongItem=function(taskString){
 
 
 	//Each elements, needs appending
+	listItem.className = "li-tasks-group";
 	editInput.type="text";
 	editInput.name="wrong";
 	editInput.value = taskString;
 	editInput.readOnly = true;
 	editInput.wrap = "hard";
 	editInput.cols = 4;
+	editButton.className = "edit-delete-btn";
 	editButton.type = "button";
+	deleteButton.className = "edit-delete-btn";
 	deleteButton.type = "button";
 
 	editButton.innerText="Edit";//innerText encodes special characters, HTML does not.
@@ -51,13 +54,15 @@ let createNewWrongItem=function(taskString){
 let addWrongItem=function(){
 	console.log("Add Task...");
 	//Create a new list item with the text from the #new-task:
-	var listItem=createNewWrongItem(wrongItemInput.value);
+	if (wrongItemInput.value != ""){
+		var listItem=createNewWrongItem(wrongItemInput.value);
+		
+		//Append listItem to incompleteTaskHolder
+		incompleteTaskHolder.appendChild(listItem);
+		bindTaskEventsWrong(listItem, addWrongItem);
 	
-	//Append listItem to incompleteTaskHolder
-	incompleteTaskHolder.appendChild(listItem);
-	bindTaskEventsWrong(listItem, addWrongItem);
-
-	wrongItemInput.value="";
+		wrongItemInput.value="";
+	}
 
 }
 
@@ -74,6 +79,7 @@ let editInput = listItem.querySelector('textarea');
 
 editButton.innerText = "Save";
 editInput.readOnly = false;
+editInput.style.backgroundColor = "gray";
 
 let containsClass=listItem.classList.contains("editMode");
 		//If class of the parent is .editmode
@@ -83,6 +89,7 @@ let containsClass=listItem.classList.contains("editMode");
 		//label becomes the inputs value.
 			editButton.innerText = "Edit";
 			editInput.readOnly = true;
+			editInput.style.backgroundColor = "#3b4652";
 		}
 		//toggle .editmode on the parent.
 		listItem.classList.toggle("editMode");

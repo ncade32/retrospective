@@ -3,7 +3,7 @@
  * 
  */
 let wellTaskInput= document.getElementById("wellNew-task");//Add a new task.
-let wellAddButton=document.getElementsByTagName("button")[1];//first button
+let wellAddButton=document.getElementsByTagName("button")[2];//first button
 let completeTaskHolder= document.getElementById("complete-tasks");//ul of #incomplete-tasks
 
 
@@ -24,13 +24,16 @@ let createNewWellItem=function(taskString){
 
 
 	//Each elements, needs appending
+	listItem.className = "li-tasks-group";
 	editInput.type="text";
 	editInput.name="well";
 	editInput.value = taskString;
 	editInput.readOnly = true;
 	editInput.wrap = "hard";
 	editInput.cols = 4;
+	editButton.className = "edit-delete-btn";
 	editButton.type = "button";
+	deleteButton.className = "edit-delete-btn";
 	deleteButton.type = "button";
 
 	editButton.innerText="Edit";//innerText encodes special characters, HTML does not.
@@ -53,14 +56,15 @@ let createNewWellItem=function(taskString){
 let addWellItem=function(){
 	console.log("Add Task...");
 	//Create a new list item with the text from the #new-task:
-	var listItem=createNewWellItem(wellTaskInput.value);
-
-	//Append listItem to completeTaskHolder
-	completeTaskHolder.appendChild(listItem);
-	bindTaskEventsWell(listItem, addWellItem);
-
-	wellTaskInput.value="";
+	if(wellTaskInput.value != ""){
+		var listItem=createNewWellItem(wellTaskInput.value);
 	
+		//Append listItem to completeTaskHolder
+		completeTaskHolder.appendChild(listItem);
+		bindTaskEventsWell(listItem, addWellItem);
+	
+		wellTaskInput.value="";
+	}
 }
 
 //Edit an existing task.
@@ -76,6 +80,7 @@ let editWellItem=function(){
 
 	editButton.innerText = "Save";
 	editInput.readOnly = false;
+	editInput.style.backgroundColor = "gray";
 
 	var containsClass=listItem.classList.contains("editMode");
 			//If class of the parent is .editmode
@@ -85,6 +90,7 @@ let editWellItem=function(){
 			//label becomes the inputs value.
 				editButton.innerText = "Edit";
 				editInput.readOnly = true;
+				editInput.style.backgroundColor = "#3b4652";
 			}
 			//toggle .editmode on the parent.
 			listItem.classList.toggle("editMode");

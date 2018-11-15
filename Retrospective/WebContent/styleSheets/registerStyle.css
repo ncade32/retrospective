@@ -1,0 +1,162 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+body{
+	font-family: 'Roboto', sans-serif;
+	background: url(img/mountain.jpg) no-repeat center center fixed;
+	background-size: cover;
+}
+.main-section{
+	margin: 0 auto;
+	margin-top: 0px;
+	padding: 0;
+}
+.modal-content{
+	background-color: #3b4652;
+	opacity: .95;
+	padding-top: 70px;
+	box-shadow: 0px 0px 3px #848484;
+}
+.form-title{
+	margin-bottom: 20px;
+	margin-top: -50px;
+	font-size: 20px;
+	font-weight: bold;
+	color: #fff;
+}
+.user-img img{
+	height: 100px;
+	width: 100px;
+	border-radius: 5px;
+	box-shadow: 0px 0px 2px #848484;
+}
+.form-group{
+	margin-bottom: 25px;
+}
+.form-group input{
+	height: 42px;
+	border-radius: 5px;
+	border: 0;
+	font-size: 18px;
+}
+.form-group::before{
+	font-family: 'Font Awesome\ 5 Free';
+	position: absolute;
+	font-size: 22px;
+	color: #555e60;
+	left: 28px;
+	padding-top: 4px;
+}
+.form-group:nth-of-type(10) input{
+	padding-left: 54px;
+}
+.form-group:nth-of-type(10)::before{
+	content: "\f007";
+}
+.form-group:nth-of-type(12) input{
+	padding-left: 54px;
+}
+.form-group:nth-of-type(12)::before{
+	content: "\f023";
+}
+.form-group:nth-of-type(14) input{
+	padding-left: 54px;
+}
+.form-group:nth-of-type(14)::before{
+	content: "\f023";
+}
+.form-check{
+	position: absolute;
+}
+.form-check-label{
+	color: #fff;
+}
+.scrum-code{
+	width: 300;
+}
+.scrum-code input:first-of-type{
+	width: 100px;
+	margin-right: 5px;
+	border-radius: 5px;
+	border: 0;
+}
+.showpass-check-input:last-of-type {
+	padding 0;
+	border-radius: 5px;
+	border: 0;
+}
+.showpass-label{
+	color: #fff;
+}
+button{
+	width: 40%;
+	margin: 5px 0 25px;
+}
+.btn{
+	background-color: #27c2a5;
+	color: #fff;
+	font-size: 19px;
+	padding: 7px 14px;
+	border-radius: 5px;
+	border-bottom: 4px solid #219882;
+}
+.btn:hover, .btn:focus{
+	background-color: #25a890!important;
+	border-bottom: 4px solid #25a890!important;
+}
+.svg-inline-fa {
+	font-size: 20px;
+	margin-right: 7px;
+}
+.register{
+	padding: 5px 0 25px;
+}
+.register a{
+	color:#c2fbfe;
+}
+#showPass{
+	position: relative;
+	left: 120px;
+	top: 40px
+}
+#showConfPass{
+	position: relative;
+	left: 120px;
+	top: 40px;
+}
+#showlabel, #showlabel2{
+	color: #fff;
+	position: relative;
+	left: 120px;
+	top: 25px
+}
+.form-group #passReg, #confirmPass{
+  margin-bottom: -50px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

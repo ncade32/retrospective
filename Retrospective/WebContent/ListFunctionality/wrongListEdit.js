@@ -21,6 +21,7 @@ let createNewWrongItemEdit=function(taskString){
 
 
 	//Each elements, needs appending
+	listItem.className = "li-tasks-group";
 	editInput.type="text";
 	editInput.name="wrong";
 	editInput.value = taskString;
@@ -50,13 +51,15 @@ let createNewWrongItemEdit=function(taskString){
 let addWrongItemEdit=function(){
 	console.log("Add Task...");
 	//Create a new list item with the text from the #new-task:
-	var listItem=createNewWrongItemEdit(wrongItemInputEdit.value);
+	if(wrongItemInputEdit.value != ""){
+		var listItem=createNewWrongItemEdit(wrongItemInputEdit.value);
+		
+		//Append listItem to incompleteTaskHolderEdit
+		incompleteTaskHolderEdit.appendChild(listItem);
+		bindTaskEventsWrong(listItem, addWrongItemEdit);
 	
-	//Append listItem to incompleteTaskHolderEdit
-	incompleteTaskHolderEdit.appendChild(listItem);
-	bindTaskEventsWrong(listItem, addWrongItemEdit);
-
-	wrongItemInputEdit.value="";
+		wrongItemInputEdit.value="";
+	}
 
 }
 
@@ -73,6 +76,7 @@ let editTask=function(){
 
 	editButton.innerText = "Save";
 	editInput.readOnly = false;
+	editInput.style.backgroundColor = "gray";
 
 	var containsClass=listItem.classList.contains("editMode");
 			//If class of the parent is .editmode
@@ -82,6 +86,7 @@ let editTask=function(){
 			//label becomes the inputs value.
 				editButton.innerText = "Edit";
 				editInput.readOnly = true;
+				editInput.style.backgroundColor = "#3b4652";
 			}
 			//toggle .editmode on the parent.
 			listItem.classList.toggle("editMode");

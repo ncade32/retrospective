@@ -2,13 +2,13 @@ package com.retrospective;
 
 import java.sql.*;
 
+// This class is used to connect to the db
+
 public class DbManager {
 	
 	public static Connection connect(){
 		try {
 			
-			//String driver = "com.mysql.cj.jdbc.Driver";
-			//Class.forName(driver);
 			String url = "jdbc:mysql://localhost:3306/retrospective_schema?autoReconnect=true&useSSL=false&serverTimezone=UTC";
 			String user = "root";
 			String pass = "Fall2018!";

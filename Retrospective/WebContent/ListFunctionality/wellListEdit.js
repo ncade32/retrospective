@@ -23,6 +23,7 @@ let createNewWellItemEdit=function(taskString){
 
 
 	//Each elements, needs appending
+	listItem.className = "li-tasks-group";
 	editInput.type="text";
 	editInput.name="well";
 	editInput.value = taskString;
@@ -52,14 +53,15 @@ let createNewWellItemEdit=function(taskString){
 let addWellItemEdit=function(){
 	console.log("Add Task...");
 	//Create a new list item with the text from the #new-task:
-	var listItem=createNewWellItemEdit(wellItemInputEdit.value);
+	if(wellItemInputEdit.value != ""){
+		var listItem=createNewWellItemEdit(wellItemInputEdit.value);
+		
+		//Append listItem to completeTaskHolderEdit
+		completeTaskHolderEdit.appendChild(listItem);
+		bindTaskEventsWell(listItem, addWellItemEdit);
 	
-	//Append listItem to completeTaskHolderEdit
-	completeTaskHolderEdit.appendChild(listItem);
-	bindTaskEventsWell(listItem, addWellItemEdit);
-
-	wellItemInputEdit.value="";
-	
+		wellItemInputEdit.value="";
+	}
 	
 }
 
@@ -76,6 +78,7 @@ let editWellItemEdit=function(){
 
 	editButton.innerText = "Save";
 	editInput.readOnly = false;
+	editInput.style.backgroundColor = "gray";
 
 	var containsClass=listItem.classList.contains("editMode");
 			//If class of the parent is .editmode
@@ -85,6 +88,7 @@ let editWellItemEdit=function(){
 			//label becomes the inputs value.
 				editButton.innerText = "Edit";
 				editInput.readOnly = true;
+				editInput.style.backgroundColor = "#3b4652";
 			}
 			//toggle .editmode on the parent.
 			listItem.classList.toggle("editMode");

@@ -8,10 +8,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class SubmitData
  */
+//This servlet is called by the welcome page once submit is hit
 @WebServlet("/SubmitData")
 public class SubmitData extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -27,6 +29,7 @@ public class SubmitData extends HttpServlet {
 		String uname, teamNum, sprintNum, projName, query, wrongCommentsSplit, wellCommentsSplit, improveCommentsSplit;
 		int scrum;
 		
+		//Collect data from all of the input fields
 		teamNum = request.getParameter("teamNum").toString();
 		sprintNum = request.getParameter("sprintNum").toString();
 		projName = request.getParameter("chooseProj").toString();
@@ -34,9 +37,9 @@ public class SubmitData extends HttpServlet {
 		well = request.getParameterValues("well");
 		improve = request.getParameterValues("improve");
 		
-		wrongCommentsSplit = GetData.storeComments(wrong);
-		wellCommentsSplit = GetData.storeComments(well);
-		improveCommentsSplit = GetData.storeComments(improve);		
+		wrongCommentsSplit = GetData.concateComments(wrong);
+		wellCommentsSplit = GetData.concateComments(well);
+		improveCommentsSplit = GetData.concateComments(improve);		
 		
 		Connection conn = DbManager.connect();
 		
@@ -47,13 +50,20 @@ public class SubmitData extends HttpServlet {
 		}
 		
 		try {
-			uname = GetData.getUname(request);
+			HttpSession session = request.getSession();
+			uname = session.getAttribute("user").toString();
+			session.setAttribute("dataEntered", true);
+			System.out.println(session.getId());
 			Statement st = conn.createStatement();
+			//Check to see if the user is a scrum
 			ResultSet rs = st.executeQuery("select scrum from admin where user = '"+uname+"';");
 			rs.next();
 			scrum = rs.getInt(1);
 			rs = st.executeQuery("select * from onlineUsers where user = '"+uname+"'");
+			/*This is to catch if the user has hit the submit button then 
+			 *hit the back button from the verification page*/
 			if(!rs.next()) {
+				//If a entry is not found just store the new comment in onlineUser table
 				query = "insert into onlineUsers values('"+uname+"','"+teamNum+"','"+projName+"','"+sprintNum+"','"+wrongCommentsSplit+"','"+wellCommentsSplit+"','"+improveCommentsSplit+"','"+scrum+"')";
 				st.execute(query);
 				System.out.println("Data entered for username: "+ uname);
@@ -61,6 +71,8 @@ public class SubmitData extends HttpServlet {
 				response.sendRedirect("verify.jsp");
 				return;
 			}else {
+				/*Replace this entry with the user's previous 
+				 *entry if one is already found in onlineUser table*/
 				GetData.deleteRow(conn, uname);
 				query = "insert into onlineUsers values('"+uname+"','"+teamNum+"','"+projName+"','"+sprintNum+"','"+wrongCommentsSplit+"','"+wellCommentsSplit+"','"+improveCommentsSplit+"','"+scrum+"')";
 				st.execute(query);

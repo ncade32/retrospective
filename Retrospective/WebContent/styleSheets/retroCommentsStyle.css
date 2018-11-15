@@ -1,13 +1,54 @@
 /* Basic Style */
-body {
-  background: #fff;
-  color: #333;
-  font-family: Lato, sans-serif;
+html,body {
+  height: 100%;
+  width: 100%;
+ 
+  color: #fff;
+  font-family: 'Roboto', sans-serif;
+  background: url(img/mountain.jpg) no-repeat center center fixed;
+  background-size: cover;
+}
+.enterInfo{
+  color: #fff;
+}
+body select{
+  outline: none;
+  cursor: pointer;
+}
+
+.navbar{
+  background-color: #000;
+  padding: 1% 0;
+}
+.navbar-default.navbar-nav li a{
+  color: #D5D5D5;
+}
+.navbar-default .navbar-nav > li > a{
+  color: white;
+}
+.navbar-default .navbar-nav > li > a:hover{
+  color: #888;
 }
 .container {
   display: block;
-  width: 400px;
+  padding: 20px;
   margin: 100px auto 0;
+  border-radius: 5px;
+  background-color: #3b4652;
+  opacity: .97;
+	padding-top: 0px;
+	box-shadow: 0px 0px 3px #848484;
+}
+.retro-title{
+  color: #fff;
+  font-family: 'Roboto', sans-serif;
+  font-size: 19px;
+  position: fixed;
+  margin-top: 10px;
+  cursor: pointer;
+}
+a:hover {
+    text-decoration: none;
 }
 ul {
   margin: 0;
@@ -15,15 +56,19 @@ ul {
 }
 li * {
   float: left;
-}
+}/*
 li, h3 {
   clear:both;
   list-style:none;
+}*/
+.li-tasks-group{
+  clear: both;
+  list-style: none;
 }
 input, button {
   outline: none;
 }
-button {
+/*button {
   background: none;
   border: 0px;
   color: #888;
@@ -32,35 +77,63 @@ button {
   margin: 10px 0 0;
   font-family: Lato, sans-serif;
   cursor: pointer;
+}*/
+.add-button{
+  background: none;
+  border: 0px;
+  color: #888;
+  font-size: 15px;
+  width: 60px;
+  position: absolute;
+  font-family: 'Roboto', sans-serif;
+  cursor: pointer;
 }
-button:hover {
-  color: #333;
+.edit{
+  background: none;
+  border: 0px;
+  color: #888;
+  font-size: 15px;
+  width: 60px;
+  margin: 10px 0 0;
+  font-family: 'Roboto', sans-serif;
+  cursor: pointer;
 }
+.delete{
+  background: none;
+  border: 0px;
+  color: #888;
+  font-size: 15px;
+  width: 60px;
+  margin: 10px 0 0;
+  font-family: 'Roboto', sans-serif;
+  cursor: pointer;
+}
+
 /* Heading */
 h3,
 label[for='new-task'] {
-  color: #333;
+  color: #fff;
   font-weight: 700;
   font-size: 15px;
-  border-bottom: 2px solid #333;
+  border-bottom: 2px solid #fff;
   padding: 30px 0 10px;
   margin: 0;
   text-transform: uppercase;
 }
 label[for='wellNew-task'] {
-  color: #333;
+  color: #fff;
   font-weight: 700;
   font-size: 15px;
-  border-bottom: 2px solid #333;
+  border-bottom: 2px solid #fff;
   padding: 30px 0 10px;
   margin: 0;
   text-transform: uppercase;
 }
 label[for='improveNew-task'] {
-  color: #333;
+  color: #fff;
   font-weight: 700;
   font-size: 15px;
-  border-bottom: 2px solid #333;
+  border-bottom: 2px solid #fff;
   padding: 30px 0 10px;
   margin: 0;
   text-transform: uppercase;
@@ -74,7 +147,7 @@ input[type="text"] {
   border: 1px solid #ddd;
   background: #fff;
   border-radius: 6px;
-  font-family: Lato, sans-serif;
+  font-family: 'Roboto', sans-serif;
   color: #888;
 }
 input[type="text"]:focus {
@@ -117,10 +190,16 @@ p > button:hover {
 }
 
 /* Task list */
-li {
+/*li {
   overflow: hidden;
   padding: 20px 0;
   border-bottom: 1px solid #eee;
+}*/
+.li-tasks-group{
+  overflow: hidden;
+  padding: 5px 0;
+  color: #fff;
+  boder-bottom: 1px solid #eee;
 }
 
 li > label {
@@ -135,6 +214,9 @@ li >  input[type="text"] {
 li > .delete:hover {
   color: #CF2323;
 }
+li >.edit:hover{
+  color: #fff;
+}
 
 /* Edit Task */
 ul li input[type=text] {
@@ -143,12 +225,14 @@ ul li input[type=text] {
 textarea{
 	width: 300px;	
 	border: none;
-	border-radius: 20px;
+	border-radius: 10px;
 	outline: none;
 	padding: 10px;	
 	resize: none; 
 	overflow: auto;
-	font-family: Lato, sans-serif;
+  background: none;
+  color: #fff;
+	font-family: 'Roboto', sans-serif;
 }
 
 ul li.editMode input[type=text] {
@@ -157,4 +241,17 @@ ul li.editMode input[type=text] {
 
 ul li.editMode label {
   display:none;
+}
+.btn{
+  	background-color: #27c2a5;
+	color: #fff;
+	font-size: 19px;
+	padding: 7px 14px;
+  	margin-top:30px;
+  	margin-left: 123px;
+	border-radius: 5px;
+	border-bottom: 4px solid #219882;
+}
+.table-hover tbody tr:hover{
+  color: black;
 }

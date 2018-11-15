@@ -23,6 +23,7 @@ let createNewImproveItemEdit=function(taskString){
 
 
 	//Each elements, needs appending
+	listItem.className = "li-tasks-group";
 	editInput.type="text";
 	editInput.name="improve";
 	editInput.value = taskString;
@@ -50,14 +51,15 @@ let createNewImproveItemEdit=function(taskString){
 let addImproveItemEdit=function(){
 	console.log("Add Task...");
 	//Create a new list item with the text from the #new-task:
-	var listItem=createNewImproveItemEdit(improveItemInputEdit.value);
+	if(improveItemInputEdit.value != ""){
+		var listItem=createNewImproveItemEdit(improveItemInputEdit.value);
+		
+		//Append listItem to completeTaskHolderEdit
+		improveTaskHolderEdit.appendChild(listItem);
+		bindTaskEventsImprove(listItem, addImproveItemEdit);
 	
-	//Append listItem to completeTaskHolderEdit
-	improveTaskHolderEdit.appendChild(listItem);
-	bindTaskEventsImprove(listItem, addImproveItemEdit);
-
-	improveItemInputEdit.value="";
-	
+		improveItemInputEdit.value="";
+	}
 	
 }
 
@@ -74,6 +76,7 @@ let editImproveItemEdit=function(){
 
 	editButton.innerText = "Save";
 	editInput.readOnly = false;
+	editInput.style.backgroundColor = "gray";
 
 	var containsClass=listItem.classList.contains("editMode");
 			//If class of the parent is .editmode
@@ -83,6 +86,7 @@ let editImproveItemEdit=function(){
 			//label becomes the inputs value.
 				editButton.innerText = "Edit";
 				editInput.readOnly = true;
+				editInput.style.backgroundColor = "#3b4652";
 			}
 			//toggle .editmode on the parent.
 			listItem.classList.toggle("editMode");

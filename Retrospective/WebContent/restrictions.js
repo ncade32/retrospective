@@ -1,6 +1,7 @@
 /**
  * 
  */
+//This function makes sure the welcome page form is filled out correctly
 function validateWelcomeForm(){
 	var teamNum = document.forms["welcomeForm"]["teamNum"].value;
 	var projectName = document.forms["welcomeForm"]["chooseProj"].value;
@@ -12,7 +13,7 @@ function validateWelcomeForm(){
 		return false;
 	}
 	else if (projectName == ""){
-		window.alert("A project much be chosen");
+		window.alert("A project must be chosen");
 		return false;
 	}
 	else if (sprintNum == ""){
@@ -27,12 +28,13 @@ function validateWelcomeForm(){
 		window.alert("Sprint number must be a number");
 		return false;
 	}
-	else if (wrongHolder.children.length == 0){
+	else if (wrongHolder.children.length == 0 || wrongHolder.chil){
 		window.alert("What went wrong must be filled out");
 		return false;
 	}
 }
 
+//This function makes sure that the editInfo page form is filled out correctly
 function validateEditForm(){
 	var teamNum = document.forms["editForm"]["teamNum"].value;
 	var projectName = document.forms["editForm"]["chooseProj"].value;
@@ -65,17 +67,29 @@ function validateEditForm(){
 	}
 }
 
+//This function makes sure that the registration page form is filled out correctly
 function validateRegForm(){
-	var user = document.forms["registerForm"]["userReg"].value;
-	var pass = document.forms["registerForm"]["passReg"].value;
-	var confirmPass = document["registerForm"]["confirmPass"].value
-	var email = document.forms["registerForm"]["email"].value;
-	var first = document.forms["registerForm"]["first"].value;
-	var last = document.forms["registerForm"]["last"].value;
-	var scrum = document.forms["registerForm"]["scrumMaster"];
+	var user = document.forms["regForm"]["userReg"].value;
+	var pass = document.forms["regForm"]["passReg"].value;
+	var confirmPass = document["regForm"]["confirmPass"].value
+	var email = document.forms["regForm"]["email"].value;
+	var first = document.forms["regForm"]["first"].value;
+	var last = document.forms["regForm"]["last"].value;
+	var scrum = document.forms["regForm"]["scrumMaster"];
 	
-	
-	if (user == ""){
+	if (first == ""){
+		window.alert("A first name must be entered");
+		return false;
+	}
+	else if (last == ""){
+		window.alert("A last name must be entered");
+		return false;
+	}
+	else if (email == ""){
+		window.alert("A valid email must be entered");
+		return false;
+	}
+	else if (user == ""){
 		window.alert("A valid username must be entered");
 		return false;
 	}
@@ -91,20 +105,8 @@ function validateRegForm(){
 		window.alert("Password and confirm password do not match");
 		return false;
 	}
-	else if (email == ""){
-		window.alert("A valid email must be entered");
-		return false;
-	}
-	else if (first == ""){
-		window.alert("A first name must be entered");
-		return false;
-	}
-	else if (last == ""){
-		window.alert("A last name must be entered");
-		return false;
-	}
 	else if(scrum.checked){
-		var code = document.forms["registerForm"]["code"].value;
+		var code = document.forms["regForm"]["code"].value;
 		if (code == ""){
 			window.alert("A scrum code must be entered");
 			return false;
@@ -112,6 +114,7 @@ function validateRegForm(){
 	}
 }
 
+//This function implements the show password checkbox on the registration page
 function showPassword(pass, checkbox){
 	var showPass = document.getElementById(checkbox);
 	var password = document.getElementById(pass);
@@ -123,37 +126,54 @@ function showPassword(pass, checkbox){
 	}
 }
 
+//This function implements the ability to enter the scrum code on the registration page
 function scrumCode(){
 	 
 	var scrumMaster = document.getElementById("scrumMaster");
-	var table = document.getElementById("regTable");
+	var form = document.getElementById("regForm");
+	var mainErrorDiv = document.getElementById("mainErrorDiv");
+	var errorMsg = mainErrorDiv.innerHTML;
 	
 	if (scrumMaster.checked){
+		var div = document.createElement("div");
+		var errorDiv = document.createElement("div");
+		//var error = document.createElement("text");
 		var input = document.createElement("input");
 		var checkbox = document.createElement("input");
-		var text = document.createElement("text");
+		var label = document.createElement("label");
 		
+		errorDiv.innerHTML = errorMsg;
+		errorDiv.id = "errorDiv";
+		errorDiv.name = "errorDiv";
+		
+		div.classList.add('scrum-code');
 		input.type = "password";
 		input.name = "code";
 		input.id = "code";
+		input.placeholder = "Enter Code";
+		
 		checkbox.type = "checkbox";
 		checkbox.id = "showCode";
 		checkbox.name = "showCode";
 		checkbox.value = "Show";
-		//checkbox.addEventListener("click", showPassword("code", "showCode"));
-		text.innerText = "Show";
+		checkbox.classList.add('showpass-check-input');
 		
-		var row = table.insertRow(7);
-		var cell1 = row.insertCell(0);
-		var cell2 = row.insertCell(1);
-		cell1.innerHTML = "Enter Scrum Code: ";
-		cell2.appendChild(input);
-		cell2.appendChild(checkbox);
-		cell2.appendChild(text);
+		label.innerHTML = "Show";
+		label.classList.add('showpass-label');
+		
+		
+		div.appendChild(input);
+		div.appendChild(checkbox);
+		div.appendChild(label);
+		
+		form.insertBefore(div, form.childNodes[31]);
+		//form.insertBefore(errorDiv, form.childNodes[20]);
 		
 		document.getElementById("showCode").setAttribute("onClick", "showPassword('code', 'showCode')");
+
 	}else{
-		table.deleteRow(7);
+		let errorDiv = document.getElementById("errorDiv");
+		form.removeChild(form.childNodes[31]);
 	}
 	
 }
