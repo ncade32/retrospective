@@ -15,7 +15,7 @@
   <link rel="stylesheet" type="text/css" href="styleSheets/loginStyle.css">
 </head>
 <body>
-<%System.out.println(session.getAttribute("user"));
+<%//System.out.println(session.getAttribute("user"));
 %>
 <div class = "modal-dialog text-center">
 		<div class="col-sm-8 main-section">

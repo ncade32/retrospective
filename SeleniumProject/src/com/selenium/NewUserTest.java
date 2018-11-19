@@ -43,6 +43,7 @@ public class NewUserTest {
 		
 		// Register a scrum master
 		driver.findElement(By.id("logout")).click();
+		System.out.println(driver.getTitle());
 		driver.findElement(By.tagName("a")).click();
 		driver.findElement(By.name("first")).sendKeys("first2");
 		driver.findElement(By.name("last")).sendKeys("last2");

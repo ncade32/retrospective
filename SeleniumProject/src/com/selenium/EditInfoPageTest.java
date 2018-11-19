@@ -52,12 +52,13 @@ public class EditInfoPageTest {
 		et = "Edit Retrospective";
 		assertEquals(et,at);
 		
-		/*driver.findElement(By.id("logout")).click();
+		driver.findElement(By.id("logout")).click();
 		at = driver.getTitle();
 		et = "Retrospective Login";
 		assertEquals(et,at);
 		
 		driver.navigate().back();
+		driver.navigate().refresh();
 		at = driver.getTitle();
 		et = "Retrospective Login";
 		assertEquals(et,at);
@@ -79,7 +80,7 @@ public class EditInfoPageTest {
 		driver.findElement(By.id("addImprove")).click();
 		driver.findElement(By.name("submit")).click();	
 		driver.findElement(By.name("edit")).click();
-		*/
+		
 		//Make sure all information is retrieved and displayed on edit page correctly
 		assertEquals(teamNum, driver.findElement(By.name("teamNum")).getAttribute("value"));
 		assertEquals(projName, driver.findElement(By.id("chooseProj")).getAttribute("value"));

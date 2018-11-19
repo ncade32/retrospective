@@ -41,7 +41,7 @@ public class WelcomePageTest {
 		driver.findElement(By.id("logout")).click();
 		at = driver.getTitle();
 		et = "Retrospective Login";
-		assertEquals(at,et);
+		assertEquals(et,at);
 		
 		//Make sure user cannot navigate back to welcome page after logging out
 		driver.navigate().back();
