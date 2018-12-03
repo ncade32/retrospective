@@ -5,7 +5,9 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,12 +15,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.retrospective.beans.Admin;
+import com.retrospective.session.AdminRemote;
+
 /**
  * Servlet implementation class Login
  */
 @WebServlet("/Login")
 public class Login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	//@EJB
+	//private AdminRemote admin;
        
    
 	/**
@@ -45,6 +52,7 @@ public class Login extends HttpServlet {
 			System.out.println("Connection failed to login");
 		}else{
 			System.out.println("Connection successful to login");
+			System.out.println("hello");
 		}
 		
 		try {
@@ -52,6 +60,8 @@ public class Login extends HttpServlet {
 		
 			Statement st = conn.createStatement();
 			ResultSet rs = st.executeQuery("SELECT user FROM admin");
+			//List<Admin> allUsers = admin.findAll();
+			//System.out.println(allUsers.get(0));
 			while(rs.next()) {
 				users.add(rs.getString(1));
 			}

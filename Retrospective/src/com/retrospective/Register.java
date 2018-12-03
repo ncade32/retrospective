@@ -5,11 +5,14 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.retrospective.session.AdminRemote;
 
 /**
  * Servlet implementation class Register
@@ -18,6 +21,8 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/Register")
 public class Register extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	@EJB
+	private AdminRemote admin;
 	
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -34,7 +39,7 @@ public class Register extends HttpServlet {
 		boolean codeValid = true;
 		
 		//Get all the data entered in each field
-		first = request.getParameter("first");
+		first = request.getParameter("first") ;
 		last = request.getParameter("last");
 		email = request.getParameter("email");
 		user = request.getParameter("userReg");
@@ -124,11 +129,13 @@ public class Register extends HttpServlet {
 			}
 			// Check to see if user is registering as a scrum and store data in database accordingly
 			if(scrumCode == null) {
-				query = "insert into admin values('"+user+"','"+pass+"','"+first+"','"+last+"','"+email+"','"+notScrum+"');";
+				admin.createAccount(first, last, user, pass, email, notScrum);
+				//query = "insert into admin values('"+user+"','"+pass+"','"+first+"','"+last+"','"+email+"','"+notScrum+"');";
 			}else {
-				query = "insert into admin values('"+user+"','"+pass+"','"+first+"','"+last+"','"+email+"','"+isScrum+"');";
+				admin.createAccount(first, last, user, pass, email, isScrum);
+				//query = "insert into admin values('"+user+"','"+pass+"','"+first+"','"+last+"','"+email+"','"+isScrum+"');";
 			}
-			st.execute(query);
+			//st.execute(query);
 			System.out.println("New user created");
 			st.close();
 			response.sendRedirect("loginPage.jsp");

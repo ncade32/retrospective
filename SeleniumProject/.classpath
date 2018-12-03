@@ -44,6 +44,8 @@
 	<classpathentry kind="lib" path="/home/ncade/Desktop/selenium-server-3.9.1/selenium-3.9.1-nodeps.jar"/>
 	<classpathentry kind="lib" path="/home/ncade/Desktop/selenium-server-standalone-3.9.1.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/Retrospective"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/RetroWeb"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/RetroEJB"/>
+	<classpathentry kind="lib" path="/home/ncade/wildfly-13.0.0.Final/modules/system/layers/base/javax/ejb/api/main/jboss-ejb-api_3.2_spec-1.0.1.Final.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

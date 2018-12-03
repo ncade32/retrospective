@@ -2,23 +2,29 @@ package com.selenium;
 
 import static org.junit.Assert.*;
 
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.util.List;
+
+import javax.ejb.EJB;
 
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+
+import com.entity.Admin;
+import com.interfaces.AdminDAOLocal;
 import com.retrospective.*;
 
 public class NewUserTest {
+	
+	@EJB
+	private AdminDAOLocal admin;
 
 	@Test
 	public void newUserTest() {
 		System.setProperty("webdriver.chrome.driver", "/home/ncade/Desktop/chromedriver");
 		WebDriver driver = new ChromeDriver();
-		driver.get("http://localhost:8080/Retrospective/register.jsp");
+		driver.get("http://localhost:8080/RetroWeb/register.jsp");
 		driver.manage().window();
 		
 		// Register a new user
@@ -65,7 +71,14 @@ public class NewUserTest {
 		
 		driver.close();
 		
-		Connection conn = DbManager.connect();
+		List<Admin> allUsers = admin.findAll();
+		for(int i = 0; i < allUsers.size(); i++) {
+			if(allUsers.get(i).getUser().equals("userReg") || allUsers.get(i).getUser().equals("scrumReg")) {
+				allUsers.remove(allUsers.get(i));
+			}
+		}
+		
+		/*Connection conn = DbManager.connect();
 		Statement st;
 		try {
 			st = conn.createStatement();
@@ -75,7 +88,7 @@ public class NewUserTest {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 		
 	}
 

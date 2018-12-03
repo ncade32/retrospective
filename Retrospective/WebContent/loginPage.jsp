@@ -25,7 +25,7 @@
 					<img  src="img/face.png">
 				</div> -->
 				
-				<form action="Login" method="post" class="col-12">
+				<form action="test" method="post" class="col-12">
 				
 					<div class="form-title">
 						RETROSPECTIVE

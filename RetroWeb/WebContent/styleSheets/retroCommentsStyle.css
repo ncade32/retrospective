@@ -1,0 +1,257 @@
+/* Basic Style */
+html,body {
+  height: 100%;
+  width: 100%;
+ 
+  color: #fff;
+  font-family: 'Roboto', sans-serif;
+  background: url(img/mountain.jpg) no-repeat center center fixed;
+  background-size: cover;
+}
+.enterInfo{
+  color: #fff;
+}
+body select{
+  outline: none;
+  cursor: pointer;
+}
+
+.navbar{
+  background-color: #000;
+  padding: 1% 0;
+}
+.navbar-default.navbar-nav li a{
+  color: #D5D5D5;
+}
+.navbar-default .navbar-nav > li > a{
+  color: white;
+}
+.navbar-default .navbar-nav > li > a:hover{
+  color: #888;
+}
+.container {
+  display: block;
+  padding: 20px;
+  margin: 100px auto 0;
+  border-radius: 5px;
+  background-color: #3b4652;
+  opacity: .97;
+	padding-top: 0px;
+	box-shadow: 0px 0px 3px #848484;
+}
+.retro-title{
+  color: #fff;
+  font-family: 'Roboto', sans-serif;
+  font-size: 19px;
+  position: fixed;
+  margin-top: 10px;
+  cursor: pointer;
+}
+a:hover {
+    text-decoration: none;
+}
+ul {
+  margin: 0;
+  padding: 0;
+}
+li * {
+  float: left;
+}/*
+li, h3 {
+  clear:both;
+  list-style:none;
+}*/
+.li-tasks-group{
+  clear: both;
+  list-style: none;
+}
+input, button {
+  outline: none;
+}
+/*button {
+  background: none;
+  border: 0px;
+  color: #888;
+  font-size: 15px;
+  width: 60px;
+  margin: 10px 0 0;
+  font-family: Lato, sans-serif;
+  cursor: pointer;
+}*/
+.add-button{
+  background: none;
+  border: 0px;
+  color: #888;
+  font-size: 15px;
+  width: 60px;
+  position: absolute;
+  font-family: 'Roboto', sans-serif;
+  cursor: pointer;
+}
+.edit{
+  background: none;
+  border: 0px;
+  color: #888;
+  font-size: 15px;
+  width: 60px;
+  margin: 10px 0 0;
+  font-family: 'Roboto', sans-serif;
+  cursor: pointer;
+}
+.delete{
+  background: none;
+  border: 0px;
+  color: #888;
+  font-size: 15px;
+  width: 60px;
+  margin: 10px 0 0;
+  font-family: 'Roboto', sans-serif;
+  cursor: pointer;
+}
+
+/* Heading */
+h3,
+label[for='new-task'] {
+  color: #fff;
+  font-weight: 700;
+  font-size: 15px;
+  border-bottom: 2px solid #fff;
+  padding: 30px 0 10px;
+  margin: 0;
+  text-transform: uppercase;
+}
+label[for='wellNew-task'] {
+  color: #fff;
+  font-weight: 700;
+  font-size: 15px;
+  border-bottom: 2px solid #fff;
+  padding: 30px 0 10px;
+  margin: 0;
+  text-transform: uppercase;
+}
+label[for='improveNew-task'] {
+  color: #fff;
+  font-weight: 700;
+  font-size: 15px;
+  border-bottom: 2px solid #fff;
+  padding: 30px 0 10px;
+  margin: 0;
+  text-transform: uppercase;
+}
+input[type="text"] {
+  margin: 0;
+  font-size: 18px;
+  line-height: 18px;
+  height: 18px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  background: #fff;
+  border-radius: 6px;
+  font-family: 'Roboto', sans-serif;
+  color: #888;
+}
+input[type="text"]:focus {
+  color: #333;
+}
+
+/* New Task */
+label[for='new-task'] {
+  display: block;
+  margin: 0 0 20px;
+}
+label[for='wellNew-task'] {
+  display: block;
+  margin: 0 0 20px;
+}
+label[for='improveNew-task'] {
+  display: block;
+  margin: 0 0 20px;
+}
+input#new-task {
+  float: left;
+  width: 318px;
+}
+input#wellNew-task {
+  float: left;
+  width: 318px;
+}
+input#improveNew-task {
+  float: left;
+  width: 318px;
+}
+input#login {
+	position:absolute;
+    transition: .5s ease;
+    top: 100%;
+    left: 50%;
+}
+p > button:hover {
+  color: #0FC57C;
+}
+
+/* Task list */
+/*li {
+  overflow: hidden;
+  padding: 20px 0;
+  border-bottom: 1px solid #eee;
+}*/
+.li-tasks-group{
+  overflow: hidden;
+  padding: 5px 0;
+  color: #fff;
+  boder-bottom: 1px solid #eee;
+}
+
+li > label {
+  font-size: 18px;
+  line-height: 40px;
+  width: 237px;
+  padding: 0 0 0 11px;
+}
+li >  input[type="text"] {
+  width: 226px;
+}
+li > .delete:hover {
+  color: #CF2323;
+}
+li >.edit:hover{
+  color: #fff;
+}
+
+/* Edit Task */
+ul li input[type=text] {
+  display:none;
+}
+textarea{
+	width: 300px;	
+	border: none;
+	border-radius: 10px;
+	outline: none;
+	padding: 10px;	
+	resize: none; 
+	overflow: auto;
+  background: none;
+  color: #fff;
+	font-family: 'Roboto', sans-serif;
+}
+
+ul li.editMode input[type=text] {
+  display:block;
+}
+
+ul li.editMode label {
+  display:none;
+}
+.btn{
+  	background-color: #27c2a5;
+	color: #fff;
+	font-size: 19px;
+	padding: 7px 14px;
+  	margin-top:30px;
+  	margin-left: 123px;
+	border-radius: 5px;
+	border-bottom: 4px solid #219882;
+}
+.table-hover tbody tr:hover{
+  color: black;
+}

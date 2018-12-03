@@ -56,10 +56,10 @@ public class SubmitData extends HttpServlet {
 			System.out.println(session.getId());
 			Statement st = conn.createStatement();
 			//Check to see if the user is a scrum
-			ResultSet rs = st.executeQuery("select scrum from admin where user = '"+uname+"';");
+			/*ResultSet rs = st.executeQuery("select scrum from admin where user = '"+uname+"';");
 			rs.next();
-			scrum = rs.getInt(1);
-			rs = st.executeQuery("select * from onlineUsers where user = '"+uname+"'");
+			scrum = rs.getInt(1);*/
+			ResultSet rs = st.executeQuery("select * from onlineUsers where user = '"+uname+"'");
 			/*This is to catch if the user has hit the submit button then 
 			 *hit the back button from the verification page*/
 			if(!rs.next()) {

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>Retrospective</name>
+	<name>1Retrospective</name>
 	<comment></comment>
 	<projects>
+		<project>Retrospective-Ear</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

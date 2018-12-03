@@ -16,7 +16,7 @@ public class RegPageRestrictionsTest {
 	public void regPageRestrictionsTest() {
 		System.setProperty("webdriver.chrome.driver", "/home/ncade/Desktop/chromedriver");
 		WebDriver driver = new ChromeDriver();
-		driver.get("http://localhost:8080/Retrospective/register.jsp");
+		driver.get("http://localhost:8080/RetroWeb/register.jsp");
 		driver.manage().window();
 		String first= "first", last= "last", email="email", user="user1", pass="pass",
 				code="incorrect";
