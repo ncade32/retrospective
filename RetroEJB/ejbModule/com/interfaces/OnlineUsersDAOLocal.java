@@ -14,4 +14,6 @@ public interface OnlineUsersDAOLocal {
 	void createOnlineUser(String user, int teamNum, String projectName, int sprintNum, String wrongInfo,
 			String wellInfo, String improveInfo, int scrum);
 
+	void deleteRow(String uname);
+
 }

@@ -13,7 +13,6 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 import com.entity.Admin;
 import com.interfaces.AdminDAOLocal;
-import com.retrospective.*;
 
 public class NewUserTest {
 	
@@ -65,16 +64,20 @@ public class NewUserTest {
 		driver.findElement(By.name("pass")).sendKeys("passReg");
 		driver.findElement(By.name("login")).click();
 		at = driver.getTitle();
-		et = "Welcome Scrum Master";
+		et = "Welcome To Retrospective";
 		assertEquals(et,at);
 		
 		
 		driver.close();
 		
 		List<Admin> allUsers = admin.findAll();
+		System.out.println(allUsers.get(0));
 		for(int i = 0; i < allUsers.size(); i++) {
-			if(allUsers.get(i).getUser().equals("userReg") || allUsers.get(i).getUser().equals("scrumReg")) {
-				allUsers.remove(allUsers.get(i));
+			if(allUsers.get(i).getUser().equals("userReg")){
+				admin.deleteRow("userReg");
+			}
+			else if(allUsers.get(i).getUser().equals("scrumReg")){
+				admin.deleteRow("scrumReg");
 			}
 		}
 		

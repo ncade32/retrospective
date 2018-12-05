@@ -50,5 +50,10 @@ public class AdminDAO implements AdminDAOLocal {
     public List<Admin> findAll(){
     	return em.createNamedQuery("Admin.findAll", Admin.class).getResultList();
     }
+    
+    @Override
+    public void deleteRow(String uname) {
+    	em.createQuery("Delete FROM Admin a WHERE a.user LIKE :user").setParameter("user", uname).executeUpdate();
+    }
 
 }

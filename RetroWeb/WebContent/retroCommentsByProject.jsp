@@ -1,3 +1,8 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql" %>
+<%@ taglib prefix="x" uri="http://java.sun.com/jsp/jstl/xml" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import = "com.retrospective.*" %>
@@ -41,31 +46,7 @@
 		return;
 	}
 	
-	//Connect to database
 	System.out.println("View Retrospective Comments Page By Project");
-	Connection conn = DbManager.connect();
-	
-	if (conn == null){
-		System.out.println("Connection failed to view comments by project");
-	}else{
-		System.out.println("Connection successful to view comments by project");
-	}
-	
-	//Get the name that was chosen by the scrum master
-	String name = RetroComments.chosenName;
-	String [] firstAndLast = name.split("-;");
-	/*The name id is retrieved and split
-	 *The names id are stored as (first-;last)*/
-	String first, last;
-	first = firstAndLast[0];
-	last = firstAndLast[1];
-	String nameTitle = first +" "+last+"'s"+" Comments";
-	
-	ArrayList<Object> projInfo = new ArrayList<Object>();
-	int tableCols = 3;
-	
-	//Get all the comments entered by this name
-	projInfo = GetData.getProjEntryInfo(conn, first, last);
 	
 %>
 
@@ -90,7 +71,7 @@
 </nav>
 
 <div class="container">
-	<h3 align="center"><%=nameTitle%></h3>
+	<h3 align="center">${nameTitle}</h3>
 	<br/>
 	<div class="table-responsive">
 		<div class="col-lg-8 col-lg-offset-2">
@@ -104,24 +85,14 @@
 					</tr>
 				</thead>
 				<tbody>
-						<% int j = 0;%>
-						<%for(int i = 0; i < (projInfo.size()/tableCols); i++){ %>
-							<tr onclick = "clickedProject(this)" id = <%= projInfo.get(j)+"-;"+projInfo.get(j+1)+"-;"+projInfo.get(j+2) %>>
-								<%for(int k = 0; k < tableCols; k++){%>
-									<td align="center"><%= projInfo.get(j) %></td>
-									<% System.out.println(j);	%>
-									<%j++; %>			
-									<td align="center"><%= projInfo.get(j) %></td>
-									<% System.out.println(j); %>
-									<%j++; %>
-									<td  align="center"><%= projInfo.get(j) %></td>
-									<% System.out.println(j); %>
-									<%j++; %>						
-									<%k = k + tableCols; %>
-								<%} %>
-							</tr>
-						<%} %>
-						
+					<fmt:parseNumber var="parsedNumber" integerOnly="true" type="number" value="${fn:length(entries) - 1}" />
+							<c:forEach var="i"  begin= "0" end="${parsedNumber}" >
+							<c:set var="id" value="${entries.get(i).getTeamNum()}-;${entries.get(i).getProjectName()}-;${entries.get(i).getSprintNum()}"/>
+								<tr onclick = "clickedProject(this)" id = "${id}">
+									<td align="center">${entries.get(i).getTeamNum()}</td>		
+									<td align="center">${entries.get(i).getProjectName()}</td>
+									<td align="center">${entries.get(i).getSprintNum()}</td>
+							</c:forEach>
 				
 				</tbody>
 			</table>

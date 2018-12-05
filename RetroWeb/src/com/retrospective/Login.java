@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import com.entity.Admin;
 import com.entity.Projects;
 import com.interfaces.AdminDAOLocal;
+import com.interfaces.FeedbackDAOLocal;
 import com.interfaces.ProjectsDAOLocal;
 
 //import com.retrospective.beans.Admin;
@@ -29,6 +30,9 @@ public class Login extends HttpServlet {
 	private AdminDAOLocal admin;
 	@EJB
 	private ProjectsDAOLocal projects;
+	@EJB
+	private FeedbackDAOLocal feedback;
+	
        
    
 	/**
@@ -44,6 +48,7 @@ public class Login extends HttpServlet {
 		//Retrieve all of the usernames and passwords for each account stored in the database
 		List<Admin> allUsers = admin.findAll();
 		List<Projects> allProjects = projects.findAll();
+		List<Admin> allFeedbackAdmins = feedback.getAllFeedbackAdmins();
 		boolean loginAttempt = false;
 		
 		//Get the username and password that the user entered
@@ -85,13 +90,13 @@ public class Login extends HttpServlet {
 				HttpSession session = request.getSession();
 				session.setAttribute("user", userInput);
 				session.setAttribute("allProjects", allProjects);
-				if (correctUser.getScrum() == 1){
-					response.sendRedirect("welcomeScrum.jsp");
-					return;
-				}else {
-					response.sendRedirect("welcome.jsp");
-					return;
-				}
+				session.setAttribute("allFeedbackAdmins", allFeedbackAdmins);
+				
+				int scrum = correctUser.getScrum();
+				session.setAttribute("scrum", scrum);
+				
+				response.sendRedirect("welcome.jsp");
+				return;
 			}else {
 				//Show error if username or password is incorrect
 				System.out.println("Login not successful");

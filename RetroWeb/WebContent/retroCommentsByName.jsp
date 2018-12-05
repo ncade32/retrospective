@@ -1,3 +1,8 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql" %>
+<%@ taglib prefix="x" uri="http://java.sun.com/jsp/jstl/xml" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import = "com.retrospective.*" %>
@@ -35,27 +40,7 @@
 		return;
 	}
 	
-	//Connect to database
 	System.out.println("View Retrospective Comments Page By Name");
-	Connection conn = DbManager.connect();
-	
-	if (conn == null){
-		System.out.println("Connection failed to view comments by name");
-	}else{
-		System.out.println("Connection successful to view comments by name");
-	}
-	
-	
-	ArrayList<String> allNames = new ArrayList<String>();
-	int tableCols = 2;
-	
-	//Get all of the names that have ever entered a comment
-	allNames = GetData.getAllFeedbackNames(conn);
-	
-	/*for(int a = 0; a < allNames.size(); a++){
-		System.out.println(allNames.get(a));
-	}
-	System.out.println(allNames.size())	;*/
 %>
 
 <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -92,20 +77,15 @@
 						</tr>
 					</thead>
 					<tbody>
-							<% int j = 0;%>
-							<%for(int i = 0; i < (allNames.size()/tableCols); i++){ %>
-								<tr onclick = "clickedName(this)" id = <%= allNames.get(j)+"-;"+allNames.get(j+1) %>>
-									<%for(int k = 0; k < tableCols; k++){%>
-										<td><%= allNames.get(j) %></td>
-										<% System.out.println(j);	%>
-										<%j++; %>			
-										<td><%= allNames.get(j) %></td>
-										<% System.out.println(j); %>
-										<%j++; %>			
-										<%k = k + tableCols; %>
-									<%} %>
-								</tr>
-							<%} %>
+					
+					<fmt:parseNumber var="parsedNumber" integerOnly="true" type="number" value="${fn:length(allFeedbackAdmins) - 1}" />
+							<c:forEach var="i"  begin= "0" end="${parsedNumber}" >
+									<c:set var="id" value="${allFeedbackAdmins.get(i).getFirst()}-;${allFeedbackAdmins.get(i).getLast()}"/>
+									<tr onclick = "clickedName(this)" id = "${id}">
+											<td>${allFeedbackAdmins.get(i).getFirst()}</td>
+											<td>${allFeedbackAdmins.get(i).getLast()}</td>
+									</tr>
+							</c:forEach>
 					</tbody>
 				</table>
 				<input type="hidden" name = "clickedName" id="clickedName" value=" " />

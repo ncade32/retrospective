@@ -1,3 +1,8 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql" %>
+<%@ taglib prefix="x" uri="http://java.sun.com/jsp/jstl/xml" %>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import = "com.retrospective.*" %>
@@ -34,40 +39,6 @@
 	
 	//Connects to database
 	System.out.println("View Retrospective Comments Page");
-	Connection conn = DbManager.connect();
-	
-	if (conn == null){
-		System.out.println("Connection failed to view comments");
-	}else{
-		System.out.println("Connection successful to view comments");
-	}
-	
-	int team, sprint;
-	String project, fullName;
-	
-	//Get the comment that was chosen by the scrum master
-	String chosenComment = RetroComments.chosenComment;
-	String [] info = chosenComment.split("-;");
-	/*The comment id is retrieved and split
-	 *The comments id are stored as (team-;projectName-;sprint)*/
-	team = Integer.parseInt(info[0]);
-	project = info[1];
-	sprint = Integer.parseInt(info[2]);
-	
-	int tableCols = 3;
-	
-	String[] wrong, well, improve, projInfoSplit;
-	//Get the user's name of the comment that was clicked on
-	fullName = RetroComments.chosenName;
-	System.out.println(fullName);
-	
-	//Retrieve all the comments from the database
-	wrong = GetData.viewWrongComments(conn, fullName, team, project, sprint);
-	well = GetData.viewWellComments(conn, fullName, team, project, sprint);
-	improve = GetData.viewImproveComments(conn, fullName, team, project, sprint);
-	
-	
-	
 	
 %>
 
@@ -101,9 +72,10 @@
 	 
 	
 	      <ul>
-	      		<%for (int i = 0; i < wrong.length; i++){ %>
-							<li class="li-tasks-group"><% out.print(wrong[i]); %></li>
-				<%} %>
+	      	<c:set var="wrongComments" value="${fn:split(commentViewed.get(0).getWrongInfo(), '@;')}" />
+	      	<c:forEach items="${wrongComments}" var="comment" >
+				<li class="li-tasks-group">${comment}</li>
+			</c:forEach>
 	       
 	      </ul>
 	      
@@ -113,9 +85,10 @@
 	      
 	   
 	      <ul>
-	      		<%for (int i = 0; i < well.length; i++){ %>
-							<li class="li-tasks-group"><% out.print(well[i]); %></li>
-				<%} %>
+	      <c:set var="wellComments" value="${fn:split(commentViewed.get(0).getWellInfo(), '@;')}" />
+	      	<c:forEach items="${wellComments}" var="well" >
+				<li class="li-tasks-group">${well}</li>
+			</c:forEach>
 	      </ul>
 	
 	      <p>
@@ -124,9 +97,10 @@
 	      
 	     
 	      <ul>
-	      		<%for (int i = 0; i < improve.length; i++){ %>
-							<li class="li-tasks-group"><% out.print(improve[i]); %></li>
-				<%} %>
+	      <c:set var="improveComments" value="${fn:split(commentViewed.get(0).getImproveInfo(), '@;')}" />
+	      	<c:forEach items="${improveComments}" var="improve" >
+				<li class="li-tasks-group">${improve}</li>
+			</c:forEach>
 	      </ul>
 	
 	

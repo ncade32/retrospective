@@ -13,7 +13,7 @@ public class RegisterBtnTest {
 	public void registerBtnTest() {
 		System.setProperty("webdriver.chrome.driver", "/home/ncade/Desktop/chromedriver");
 		WebDriver driver = new ChromeDriver();
-		driver.get("http://localhost:8080/Retrospective/loginPage.jsp");
+		driver.get("http://localhost:8080/RetroWeb/loginPage.jsp");
 		driver.manage().window();
 		
 		//Make sure registration button works on login page

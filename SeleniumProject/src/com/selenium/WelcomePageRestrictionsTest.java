@@ -16,7 +16,7 @@ public class WelcomePageRestrictionsTest {
 	public void welcomePageRestrictionsTest() {
 		System.setProperty("webdriver.chrome.driver", "/home/ncade/Desktop/chromedriver");
 		WebDriver driver = new ChromeDriver();
-		driver.get("http://localhost:8080/Retrospective/loginPage.jsp");
+		driver.get("http://localhost:8080/RetroWeb/loginPage.jsp");
 		driver.manage().window();
 		
 		String teamNum= "4", projName="project2", sprintNum= "1", user="user", pass="pass",

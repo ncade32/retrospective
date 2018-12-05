@@ -1,3 +1,7 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql" %>
+<%@ taglib prefix="x" uri="http://java.sun.com/jsp/jstl/xml" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import= "com.retrospective.*" %>
@@ -24,45 +28,13 @@
 	response.setHeader("Pragma", "no-cache");
 	response.setHeader("Expires", "0");
 	
-	System.out.println(session.getAttribute("user"));
-	
 	if(session.getAttribute("user") == null){
 		response.sendRedirect("loginPage.jsp");
 		return;
 	}
 	
-	//Connect to database
 	System.out.println("Edit Page");
-	Connection conn = DbManager.connect();
-
-	if (conn == null){
-		System.out.println("Connection failed to edit info");
-	}else{
-		System.out.println("Connection successful to edit info");
-	}
 	
-	ArrayList<String> projNames = new ArrayList<String>();
-	//Get all of the project names
-	projNames = GetData.getProjectNames(conn);
-	
-	String uname, teamNum, projName, sprintNum, wrong, well, improve;
-	String [] wrongComments, wellComments, improveComments;
-	//Retrieve all of the info entered by the user for this comment that is being edited
-	uname = session.getAttribute("user").toString();
-	teamNum = GetData.getTeamNumByUser(conn, uname);
-	projName = GetData.getProjectNameByUser(conn, uname);
-	sprintNum = GetData.getSprintNumByUser(conn, uname);
-	wrong = GetData.getWrongCommentsByUser(conn, uname);
-	well = GetData.getWellCommentsByUser(conn, uname);
-	improve = GetData.getImproveCommentsByUser(conn, uname);
-	
-	boolean isScrum = GetData.isScrum(conn, uname);
-	
-	GetData.closeConnection(conn);
-	
-	wrongComments = GetData.splitComments(wrong);
-	wellComments = GetData.splitComments(well);
-	improveComments = GetData.splitComments(improve);
 %>
 
 <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -73,20 +45,20 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<%if(isScrum){ %>
+			<c:if test="${scrum == 1 }">
 				<a href="welcomeScrum.jsp" id = "title" class = "retro-title">Retrospective</a>
-			<%}else{ %>
+			</c:if>
 				<a href="welcome.jsp" id = "title" class = "retro-title">Retrospective</a>
-			<%} %>
 		</div>
 		<div class="collapse navbar-collapse" id="myNavbar">
 			<ul class="nav navbar-nav navbar-right">
-			<%if(isScrum){ %>
+			<c:if test="${scrum == 1 }">
 				<li><a href="retroCommentsByName.jsp">Retrospective Comments</a>
 				<li><a id="logout" href="Logout">Logout</a>
-			<%}else{ %>
+			</c:if>
+			<c:if test="${scrum == 0 }">
 				<li><a id="logout" href="Logout">Logout</a>
-			<%} %>
+			</c:if>
 			</ul>
 		</div>
 	</div>
@@ -100,28 +72,28 @@
 	<tbody>
 		<tr>
 			<td class="enterInfo">Enter Team Number: </td>
-			<td><input type="text" id = "teamNum" name="teamNum" value = <%= teamNum %> size = "5%" ></td>
+			<td><input type="text" id = "teamNum" name="teamNum" value = "${teamNum}" size = "5%" ></td>
 		</tr>
 		<tr>
 			<td class="enterInfo">Choose Project :</td>	
 			<td>
 				<select id = "chooseProj" name = "chooseProj" >
 				<option value= "">Choose a project...</option>
-					<%for (int i = 0; i < projNames.size(); i++){ %>
-						<%if (projNames.get(i).equals(projName)){ %>
-							<option selected = "selected"><% out.print(projNames.get(i)); %></option>
-						<%}
-						else{ %>
-							<option><% out.print(projNames.get(i)); %></option>
-					<%	}
-					  }%>
+					<c:forEach items="${allProjects}" var="project">
+						<c:choose>
+							<c:when test="${project.getProjectName().equals(projectName)}">
+								<option selected = "selected">${projectName}</option>
+							</c:when>
+								<c:otherwise><option>${project.getProjectName()}</option></c:otherwise>
+						</c:choose>
+					</c:forEach>
 				</select>
 				
 			</td>
 		</tr>
 		<tr>
 			<td class="enterInfo">Enter Sprint Number: </td>
-			<td><input type="text" id = "sprintNum" name="sprintNum" value = <%= sprintNum %> size = "5%" ></td>
+			<td><input type="text" id = "sprintNum" name="sprintNum" value = "${sprintNum}" size = "5%" ></td>
 		</tr>
 	</tbody>
 </table>
@@ -133,9 +105,9 @@
  
 
       <ul id="incomplete-tasks2">
-      		<%for(int i = 0; i < wrongComments.length; i++){ %>
-      			<li class="li-tasks-group"><textarea readonly name = "wrong" rows="" cols=""><%= wrongComments[i]%></textarea><button type = "button" class="edit">Edit</button><button type = "button" class="delete">Delete</button></li>
-       		<%} %>
+      		<c:forEach items="${wrongInfoComments}" var="wrong">
+      			<li class="li-tasks-group"><textarea readonly name = "wrong" rows="" cols="">${wrong}</textarea><button type = "button" class="edit">Edit</button><button type = "button" class="delete">Delete</button></li>
+       		</c:forEach>
       </ul>
       
       <p>
@@ -144,9 +116,11 @@
       
    
       <ul id="complete-tasks2">
-      		<%for(int i = 0; i < wellComments.length; i++){ %>
-      				<li class="li-tasks-group"><textarea readonly name = "well"><%= wellComments[i]%></textarea><button type = "button" class="edit">Edit</button><button type = "button" class="delete">Delete</button></li>
-       		<%} %>
+      		<c:forEach items="${wellInfoComments}" var="well">
+      			<c:if test="${well != 'none' }">
+      				<li class="li-tasks-group"><textarea readonly name = "well" rows="" cols="">${well}</textarea><button type = "button" class="edit">Edit</button><button type = "button" class="delete">Delete</button></li>
+       			</c:if>
+       		</c:forEach>
        		
       </ul>
 
@@ -156,9 +130,11 @@
       
      
       <ul id="improve-tasks2">
-      		<%for(int i = 0; i < improveComments.length; i++){ %>
-      				<li class="li-tasks-group"><textarea readonly name = "improve"><%= improveComments[i]%></textarea><button type = "button" class="edit">Edit</button><button type = "button" class="delete">Delete</button></li>
-       		<%} %>
+      		<c:forEach items="${improveInfoComments}" var="improve">
+      			<c:if test="${improve != 'none' }">
+      				<li class="li-tasks-group"><textarea readonly name = "improve" rows="" cols="">${improve}</textarea><button type = "button" class="edit">Edit</button><button type = "button" class="delete">Delete</button></li>
+       			</c:if>
+       		</c:forEach>
       </ul>
     
     

@@ -44,13 +44,21 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a href="welcome.jsp" id = "title" class = "retro-title">Retrospective</a>
+			<c:if test="${scrum == 1 }">
+				<a href="welcomeScrum.jsp" id = "title" class = "retro-title">Retrospective</a>
+			</c:if>
+				<a href="welcome.jsp" id = "title" class = "retro-title">Retrospective</a>
 		</div>
-		
 		<div class="collapse navbar-collapse" id="myNavbar">
 			<ul class="nav navbar-nav navbar-right">
+			<c:if test="${scrum == 1 }">
+				<li><a href="retroCommentsByName.jsp">Retrospective Comments</a>
 				<li><a id="logout" href="Logout">Logout</a>
-				</ul>
+			</c:if>
+			<c:if test="${scrum == 0 }">
+				<li><a id="logout" href="Logout">Logout</a>
+			</c:if>
+			</ul>
 		</div>
 	</div>
 </nav>

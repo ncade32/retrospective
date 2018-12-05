@@ -19,7 +19,7 @@ public class EditInfoPageTest {
 		WebDriver driver = new ChromeDriver();
 		
 		//Make sure user is redirected back to login page
-		driver.get("http://localhost:8080/Retrospective/editInfo.jsp");
+		driver.get("http://localhost:8080/RetroWeb/editInfo.jsp");
 		driver.manage().window();
 		
 		String teamNum= "4", projName="project2", sprintNum= "1", user="user", pass="pass";

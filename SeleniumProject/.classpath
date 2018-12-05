@@ -47,5 +47,6 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/RetroWeb"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/RetroEJB"/>
 	<classpathentry kind="lib" path="/home/ncade/wildfly-13.0.0.Final/modules/system/layers/base/javax/ejb/api/main/jboss-ejb-api_3.2_spec-1.0.1.Final.jar"/>
+	<classpathentry kind="lib" path="/home/ncade/wildfly-13.0.0.Final/modules/system/layers/base/javax/persistence/api/main/hibernate-jpa-2.1-api-1.0.2.Final.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

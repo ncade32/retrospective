@@ -44,7 +44,7 @@ public class Logout extends HttpServlet {
 		 *onlineUser table and the user's username will be deleted from the session*/
 		for(int i = 0; i < allOnlineUsers.size(); i ++) {
 			if(allOnlineUsers.get(i).getUser().equals(uname)) {
-				allOnlineUsers.remove(allOnlineUsers.get(i));
+				onlineUsers.deleteRow(uname);
 				session.invalidate();
 				System.out.println("logged out");
 				response.sendRedirect("loginPage.jsp");

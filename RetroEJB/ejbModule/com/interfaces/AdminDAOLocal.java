@@ -15,4 +15,6 @@ public interface AdminDAOLocal {
 	
 	int getScrum(String uname);
 
+	void deleteRow(String uname);
+
 }

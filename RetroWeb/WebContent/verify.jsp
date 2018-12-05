@@ -1,3 +1,7 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql" %>
+<%@ taglib prefix="x" uri="http://java.sun.com/jsp/jstl/xml" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import= "com.retrospective.*" %>
@@ -28,19 +32,12 @@
 		response.sendRedirect("loginPage.jsp");
 		return;
 	}
-	//Connect to database
-	System.out.println("Verify Page");
-	Connection conn = DbManager.connect();
 	
-	if (conn == null){
-		System.out.println("Connection failed to verify info");
-	}else{
-		System.out.println("Connection successful to verify info");
-	}
+	System.out.println("Verify Page");
 	
 	//This handles users hitting the back button after successfully entering a comment
 	if(session.getAttribute("dataEntered").equals(false)){
-		if(GetData.isScrum(conn, session.getAttribute("user").toString())){
+		if(Integer.parseInt(session.getAttribute("scrum").toString()) == 1){
 			response.sendRedirect("welcomeScrum.jsp");
 			return;
 		}else{
@@ -49,24 +46,6 @@
 		}
 	}
 	
-	String uname, teamNum, projName, sprintNum, wrong, well, improve;
-	String [] wrongComments, wellComments, improveComments;
-	
-	//Retrieve all neccessary info from database to appear on verification page
-	uname = session.getAttribute("user").toString();
-	projName = GetData.getProjectNameByUser(conn, uname);
-	sprintNum = GetData.getSprintNumByUser(conn, uname);
-	teamNum = GetData.getTeamNumByUser(conn, uname);
-	wrong = GetData.getWrongCommentsByUser(conn, uname);
-	well = GetData.getWellCommentsByUser(conn, uname);
-	improve = GetData.getImproveCommentsByUser(conn, uname);
-	boolean isScrum = GetData.isScrum(conn, uname);
-	
-	GetData.closeConnection(conn);
-	
-	wrongComments = GetData.splitComments(wrong);
-	wellComments = GetData.splitComments(well);
-	improveComments = GetData.splitComments(improve);
 %>
 <script type="text/javascript">
 function confirmed(){
@@ -83,20 +62,20 @@ function confirmed(){
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<%if(isScrum){ %>
+			<c:if test="${scrum == 1 }">
 				<a href="welcomeScrum.jsp" id = "title" class = "retro-title">Retrospective</a>
-			<%}else{ %>
+			</c:if>
 				<a href="welcome.jsp" id = "title" class = "retro-title">Retrospective</a>
-			<%} %>
 		</div>
 		<div class="collapse navbar-collapse" id="myNavbar">
 			<ul class="nav navbar-nav navbar-right">
-			<%if(isScrum){ %>
+			<c:if test="${scrum == 1 }">
 				<li><a href="retroCommentsByName.jsp">Retrospective Comments</a>
 				<li><a id="logout" href="Logout">Logout</a>
-			<%}else{ %>
+			</c:if>
+			<c:if test="${scrum == 0 }">
 				<li><a id="logout" href="Logout">Logout</a>
-			<%} %>
+			</c:if>
 			</ul>
 		</div>
 	</div>
@@ -110,15 +89,15 @@ function confirmed(){
 	<tbody>
 		<tr>
 			<td class="enterInfo">Team Number: </td>
-			<td id="teamNum" class="enterInfo"><%= teamNum %></td>
+			<td id="teamNum" class="enterInfo">${teamNum}</td>
 		</tr>
 		<tr>
 			<td class="enterInfo">Project :</td>	
-			<td id="projName" class="enterInfo"><%= projName %></td>
+			<td id="projName" class="enterInfo">${projectName}</td>
 		</tr>
 		<tr>
 			<td class="enterInfo">Sprint Number: </td>
-			<td id="sprintNum" class="enterInfo"><%= sprintNum %></td>
+			<td id="sprintNum" class="enterInfo">${sprintNum}</td>
 		</tr>
 	</tbody>
 </table>
@@ -129,9 +108,9 @@ function confirmed(){
  
 
       <ul>
-      		<%for (int i = 0; i < wrongComments.length; i++){ %>
-						<li class="li-tasks-group"><% out.print(wrongComments[i]); %></li>
-			<%} %>
+      		<c:forEach items="${wrongInfoComments}" var="wrong">
+						<li class="li-tasks-group">${wrong}</li>
+			</c:forEach>
        
       </ul>
       
@@ -141,9 +120,9 @@ function confirmed(){
       
    
       <ul>
-      		<%for (int i = 0; i < wellComments.length; i++){ %>
-						<li class="li-tasks-group"><% out.print(wellComments[i]); %></li>
-			<%} %>
+      		<c:forEach items="${wellInfoComments}" var="well">
+						<li class="li-tasks-group">${well}</li>
+			</c:forEach>
       </ul>
 
       <p>
@@ -152,9 +131,9 @@ function confirmed(){
       
      
       <ul>
-      		<%for (int i = 0; i < improveComments.length; i++){ %>
-						<li class="li-tasks-group"><% out.print(improveComments[i]); %></li>
-			<%} %>
+      		<c:forEach items="${improveInfoComments}" var="improve">
+						<li class="li-tasks-group">${improve}</li>
+			</c:forEach>
       </ul>
 	<div class="done-edit-btn">
 		<button  type= "submit" class="btn" id = "done" name = "done">Done</button>

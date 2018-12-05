@@ -44,5 +44,10 @@ public class OnlineUsersDAO implements OnlineUsersDAOLocal {
 	public List<OnlineUsers> findAll() {
 		return em.createNamedQuery("OnlineUsers.findAll", OnlineUsers.class).getResultList();
 	}
+    
+    @Override
+    public void deleteRow(String uname) {
+    	em.createQuery("Delete FROM OnlineUsers o WHERE o.user LIKE :user").setParameter("user", uname).executeUpdate();
+    }
 
 }

@@ -8,6 +8,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
 
+import javax.ejb.EJB;
+
 import org.junit.Test;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
@@ -16,16 +18,19 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
 
+import com.interfaces.FeedbackDAOLocal;
 import com.retrospective.DbManager;
 
 public class VerifyPageTest {
+	@EJB
+	FeedbackDAOLocal feedback;
 
 	@Test
 	public void verifyPageTest() {
 		System.setProperty("webdriver.chrome.driver", "/home/ncade/Desktop/chromedriver");
 		WebDriver driver = new ChromeDriver();
 		//Make sure user is redirected to login page
-		driver.get("http://localhost:8080/Retrospective/verify.jsp");
+		driver.get("http://localhost:8080/RetroWeb/verify.jsp");
 		driver.manage().window();
 		
 		String teamNum= "4", projName="project2", sprintNum= "1", user="user", pass="pass";
@@ -138,6 +143,11 @@ public class VerifyPageTest {
 		
 		driver.close();
 		
+		boolean enteredCorrectly = feedback.isDuplicateEntry(user, Integer.parseInt(teamNum), projName, Integer.parseInt(sprintNum));
+		
+		assertEquals(true, enteredCorrectly);
+	
+		/*
 		Connection conn = DbManager.connect();
 		Statement st;
 		try {
@@ -158,8 +168,6 @@ public class VerifyPageTest {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 	}
-	
-
 }
