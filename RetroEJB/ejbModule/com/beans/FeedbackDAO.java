@@ -6,12 +6,9 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
-import javax.persistence.TypedQuery;
 
 import com.entity.Admin;
 import com.entity.Feedback;
-import com.entity.FeedbackPK;
 import com.interfaces.FeedbackDAOLocal;
 
 /**

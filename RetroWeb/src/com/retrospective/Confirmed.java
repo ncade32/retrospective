@@ -39,7 +39,7 @@ public class Confirmed extends HttpServlet {
 			String projName, wrongInfo, wellInfo, improveInfo;
 			int teamNum, sprintNum, scrum;
 		
-			//Get the comment the user just submitted
+			//Get all the fields so that it can be displayed on editInfo.jsp
 			teamNum = (Integer) session.getAttribute("teamNum");
 			projName = session.getAttribute("projectName").toString();
 			sprintNum = (Integer) session.getAttribute("sprintNum");
@@ -49,7 +49,7 @@ public class Confirmed extends HttpServlet {
 			scrum = (Integer) session.getAttribute("scrum");
 			
 			
-			/*This for loop is checking to see if the user has already 
+			/*This is checking to see if the user has already 
 			 *entered a comment for this team, projectName, and sprint*/
 			if(feedback.isDuplicateEntry(uname, teamNum, projName, sprintNum)) {
 				//If true show error code for entering same comment twice
@@ -65,19 +65,11 @@ public class Confirmed extends HttpServlet {
 			feedback.createEntry(uname, teamNum, projName, sprintNum, wrongInfo, wellInfo, improveInfo, scrum);
 			onlineUsers.deleteRow(uname);
 			
-			if(scrum == 0) {
-				session.setAttribute("dataEntered", false);
-				out.write("<script type=\"text/javascript\">");
-				out.write("window.alert('Retrospective Comments Saved');");
-				out.write("location = 'welcome.jsp';");
-				out.write("</script>");
-			}else {
-				session.setAttribute("dataEntered", false);
-				out.write("<script type=\"text/javascript\">");
-				out.write("window.alert('Retrospective Comments Saved');");
-				out.write("location = 'welcomeScrum.jsp';");
-				out.write("</script>");
-			}
+			session.setAttribute("dataEntered", false);
+			out.write("<script type=\"text/javascript\">");
+			out.write("window.alert('Retrospective Comments Saved');");
+			out.write("location = 'welcome.jsp';");
+			out.write("</script>");
 	}
 
 }

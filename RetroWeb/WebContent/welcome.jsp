@@ -44,15 +44,12 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<c:if test="${scrum == 1 }">
-				<a href="welcomeScrum.jsp" id = "title" class = "retro-title">Retrospective</a>
-			</c:if>
-				<a href="welcome.jsp" id = "title" class = "retro-title">Retrospective</a>
+			<a href="welcome.jsp" id = "title" class = "retro-title">Retrospective</a>
 		</div>
 		<div class="collapse navbar-collapse" id="myNavbar">
 			<ul class="nav navbar-nav navbar-right">
 			<c:if test="${scrum == 1 }">
-				<li><a href="retroCommentsByName.jsp">Retrospective Comments</a>
+				<li><a href="#" onclick="document.retroCommentsForm.submit();">Retrospective Comments</a>
 				<li><a id="logout" href="Logout">Logout</a>
 			</c:if>
 			<c:if test="${scrum == 0 }">
@@ -122,6 +119,11 @@
 <button type= "submit" class="btn" id = "submit" name = "submit">Submit</button>
 
 </div>
+
+</form>
+
+<form action="RetroComments" method="POST" name="retroCommentsForm">
+<input type="hidden" name = "webpage" id="webpage" value="welcome" />
 </form> 
 
 

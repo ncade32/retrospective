@@ -96,54 +96,48 @@ public class Register extends HttpServlet {
 			return;
 		}
 		
-		try {
-			allUsers = admin.findAll();
-			// Check to see if the username is not already taken
-			for(int i = 0; i < allUsers.size(); i++) {
-				if (allUsers.get(i).getUser().equals(user)) {
-					System.out.println("Error : Username taken");
-					request.setAttribute("userTakenError", "Username Already Taken");
-					request.setAttribute("savedFirst", request.getParameter("first").toString());
-					request.setAttribute("savedLast", request.getParameter("last").toString());
-					request.setAttribute("savedEmail", request.getParameter("email").toString());
-					request.getRequestDispatcher("register.jsp").forward(request, response);
-					return;
-				}
+		allUsers = admin.findAll();
+		// Check to see if the username is not already taken
+		for(int i = 0; i < allUsers.size(); i++) {
+			if (allUsers.get(i).getUser().equals(user)) {
+				System.out.println("Error : Username taken");
+				request.setAttribute("userTakenError", "Username Already Taken");
+				request.setAttribute("savedFirst", request.getParameter("first").toString());
+				request.setAttribute("savedLast", request.getParameter("last").toString());
+				request.setAttribute("savedEmail", request.getParameter("email").toString());
+				request.getRequestDispatcher("register.jsp").forward(request, response);
+				return;
 			}
-			// Check to see if the scrum code is valid
-			if (scrumCode != null) {
-				codeValid = false;
-				allScrumCodes = scrumCodes.findAll();
-				for(int i = 0; i < allScrumCodes.size(); i ++) {
-					if(allScrumCodes.get(i).getCodes().equals(scrumCode)) {
-						codeValid = true;
-					}
-				}
-				if (!codeValid) {
-					System.out.println("Error : Incorrect Scrum Code");
-					request.setAttribute("scrumCodeError", "Incorrect Scrum Code");
-					request.setAttribute("savedFirst", request.getParameter("first").toString());
-					request.setAttribute("savedLast", request.getParameter("last").toString());
-					request.setAttribute("savedEmail", request.getParameter("email").toString());
-					request.setAttribute("savedUser", request.getParameter("userReg").toString());
-					request.getRequestDispatcher("register.jsp").forward(request, response);
-					return;
-				}
-			}
-			// Check to see if user is registering as a scrum and store data in database accordingly
-			if(scrumCode == null) {
-				admin.createAccount(first, last, user, pass, email, notScrum);
-			}else {
-				admin.createAccount(first, last, user, pass, email, isScrum);
-			}
-			System.out.println("New user created");
-			response.sendRedirect("loginPage.jsp");
-			return;
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			System.out.println("Failed to create new user");
-			e.printStackTrace();
 		}
+		// Check to see if the scrum code is valid
+		if (scrumCode != null) {
+			codeValid = false;
+			allScrumCodes = scrumCodes.findAll();
+			for(int i = 0; i < allScrumCodes.size(); i ++) {
+				if(allScrumCodes.get(i).getCodes().equals(scrumCode)) {
+					codeValid = true;
+				}
+			}
+			if (!codeValid) {
+				System.out.println("Error : Incorrect Scrum Code");
+				request.setAttribute("scrumCodeError", "Incorrect Scrum Code");
+				request.setAttribute("savedFirst", request.getParameter("first").toString());
+				request.setAttribute("savedLast", request.getParameter("last").toString());
+				request.setAttribute("savedEmail", request.getParameter("email").toString());
+				request.setAttribute("savedUser", request.getParameter("userReg").toString());
+				request.getRequestDispatcher("register.jsp").forward(request, response);
+				return;
+			}
+		}
+		// Check to see if user is registering as a scrum and store data in database accordingly
+		if(scrumCode == null) {
+			admin.createAccount(first, last, user, pass, email, notScrum);
+		}else {
+			admin.createAccount(first, last, user, pass, email, isScrum);
+		}
+		System.out.println("New user created");
+		response.sendRedirect("loginPage.jsp");
+		return;
 		
 	}
 

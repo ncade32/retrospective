@@ -37,7 +37,9 @@ public class Logout extends HttpServlet {
 		System.out.println(session.getId());
 		System.out.println(session.getAttribute("user"));
 		String uname = session.getAttribute("user").toString();
-		//Check to see if the user finished his/her entry. If not it will show in the onlineUser table
+		
+		/*Check to see if the user finished his/her entry. 
+		 * If not their username will show in the onlineUser table */
 		List<OnlineUsers> allOnlineUsers = onlineUsers.findAll();
 		
 		/*If user did not complete entry it will be deleted from the 
@@ -56,7 +58,6 @@ public class Logout extends HttpServlet {
 		session.removeAttribute("user");
 		session.removeAttribute("dataEntered");
 		session.invalidate();
-		//System.out.println("logged out: " + session.getAttribute("user"));
 		response.sendRedirect("loginPage.jsp");
 		return;
 	}

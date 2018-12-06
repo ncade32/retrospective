@@ -17,8 +17,6 @@ import com.interfaces.AdminDAOLocal;
 import com.interfaces.FeedbackDAOLocal;
 import com.interfaces.ProjectsDAOLocal;
 
-//import com.retrospective.beans.Admin;
-//import com.retrospective.session.AdminRemote;
 
 /**
  * Servlet implementation class Login
@@ -45,7 +43,8 @@ public class Login extends HttpServlet {
 		
 		String userInput, passInput;
 		Admin correctUser = null;
-		//Retrieve all of the usernames and passwords for each account stored in the database
+		
+		//Retrieve all of the user accounts, user accounts that have feedback, and projects for each account stored in the database
 		List<Admin> allUsers = admin.findAll();
 		List<Projects> allProjects = projects.findAll();
 		List<Admin> allFeedbackAdmins = feedback.getAllFeedbackAdmins();
@@ -55,55 +54,35 @@ public class Login extends HttpServlet {
 		userInput = request.getParameter("user");
 		passInput = request.getParameter("pass");
 			
-		
-			//Statement st = conn.createStatement();
-			//ResultSet rs = st.executeQuery("SELECT user FROM admin");
-			//List<Admin> allUsers = admin.findAll();
-			//System.out.println(allUsers.get(0));
-			/*for(int i = 0; i < allUsers.size(); i++) {
-				users.add(rs.getString(1));
-			}*/
-			//Check to see if the username entered is found in the database
-			for(int i = 0; i < allUsers.size(); i++) {
-				if(allUsers.get(i).getUser().equals(userInput)){
-					if(allUsers.get(i).getPass().equals(passInput)) {
-						correctUser = allUsers.get(i);
-						loginAttempt = true;
-					}
+		//Check to see if the username and password entered is correct
+		for(int i = 0; i < allUsers.size(); i++) {
+			if(allUsers.get(i).getUser().equals(userInput)){
+				if(allUsers.get(i).getPass().equals(passInput)) {
+					correctUser = allUsers.get(i);
+					loginAttempt = true;
 				}
 			}
-					/*rs = st.executeQuery("SELECT pass FROM admin where user = '"+userInput+"';");
-					while(rs.next()) {
-						passwords.add(rs.getString(1));
-					}
-					//Check to see if the password matches the username found in the database
-					for(i = 0; i < passwords.size(); i++) {
-						if(passInput.equals(passwords.get(i))) {
-							correctUser = true;
-						}
-					}
-				}*/
+		}
 			
-			//Check to see if the user is a scrum so he/she can be redirected to the correct welcome page
-			if (loginAttempt) {
-				System.out.println("Login successful");
-				HttpSession session = request.getSession();
-				session.setAttribute("user", userInput);
-				session.setAttribute("allProjects", allProjects);
-				session.setAttribute("allFeedbackAdmins", allFeedbackAdmins);
-				
-				int scrum = correctUser.getScrum();
-				session.setAttribute("scrum", scrum);
-				
-				response.sendRedirect("welcome.jsp");
-				return;
-			}else {
-				//Show error if username or password is incorrect
-				System.out.println("Login not successful");
-				request.setAttribute("loginError", "Username Or Password Incorrect");
-				request.getRequestDispatcher("loginPage.jsp").forward(request, response);
-				return;
-			}
+		//If credentials entered are correct grant user access to welcome.jsp
+		if (loginAttempt) {
+			System.out.println("Login successful");
+			HttpSession session = request.getSession();
+			session.setAttribute("user", userInput);
+			session.setAttribute("allProjects", allProjects);
+			session.setAttribute("allFeedbackAdmins", allFeedbackAdmins);
+			int scrum = correctUser.getScrum();
+			session.setAttribute("scrum", scrum);
+			
+			response.sendRedirect("welcome.jsp");
+			return;
+		}else {
+			//If credentials entered are incorrect showe error and reload loginPage.jsp
+			System.out.println("Login not successful");
+			request.setAttribute("loginError", "Username Or Password Incorrect");
+			request.getRequestDispatcher("loginPage.jsp").forward(request, response);
+			return;
+		}
 	}
 }
 

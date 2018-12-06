@@ -45,10 +45,7 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<c:if test="${scrum == 1 }">
-				<a href="welcomeScrum.jsp" id = "title" class = "retro-title">Retrospective</a>
-			</c:if>
-				<a href="welcome.jsp" id = "title" class = "retro-title">Retrospective</a>
+			<a href="welcome.jsp" id = "title" class = "retro-title">Retrospective</a>
 		</div>
 		<div class="collapse navbar-collapse" id="myNavbar">
 			<ul class="nav navbar-nav navbar-right">

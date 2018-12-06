@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import org.junit.Test;
 import org.openqa.selenium.Alert;
@@ -24,10 +25,10 @@ public class RetrospectiveByProjectTest {
 		System.setProperty("webdriver.chrome.driver", "/home/ncade/Desktop/chromedriver");
 		WebDriver driver = new ChromeDriver();
 		//Make sure user is redirected to login page
-		driver.get("http://localhost:8080/Retrospective/retroCommentsByProject.jsp");
+		driver.get("http://localhost:8080/RetroWeb/retroCommentsByProject.jsp");
 		driver.manage().window();
 		
-		String findTitle = "TEST TESTS\'S COMMENTS", teamNum= "4", projName="project2", sprintNum= "1", user="scrum", pass="test";
+		String findTitle = "Norman Cade\'S COMMENTS", teamNum= "4", projName="project2", sprintNum= "1", user="scrum", pass="test";
 		String [] comments = {"hello", "goodbye", "hola"};
 		
 		String at = driver.getTitle();
@@ -56,6 +57,7 @@ public class RetrospectiveByProjectTest {
 		List<WebElement> links = driver.findElements(By.tagName("a"));
 		links.get(1).click();
 		driver.findElement(By.id("test-;tests")).click();
+		System.out.println("here");
 		at = driver.getTitle();
 		et = "Retrospective Comments By Project";
 		assertEquals(et,at);
@@ -91,7 +93,7 @@ public class RetrospectiveByProjectTest {
 		driver.close();
 		
 		//Delete new entry
-		Connection conn = DbManager.connect();
+		/*Connection conn = DbManager.connect();
 		Statement st;
 		try {
 			st = conn.createStatement();
@@ -101,7 +103,7 @@ public class RetrospectiveByProjectTest {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 		
 	}
 

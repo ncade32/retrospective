@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.entity.Admin;
 import com.entity.Feedback;
 import com.interfaces.FeedbackDAOLocal;
 
@@ -25,7 +26,10 @@ public class RetroComments extends HttpServlet {
 	@EJB
 	private FeedbackDAOLocal feedback;
     
-   
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doPost(request,response);
+	}
+	
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -34,44 +38,56 @@ public class RetroComments extends HttpServlet {
 		response.setContentType("text/html");
 		// Check to see what webpage called the servlet
 		String webpage = request.getParameter("webpage");
+		
 		HttpSession session = request.getSession();
 		String[] chosenName, chosenComment;
 		String userFirst, userLast, projectName;
 		int teamNum, sprintNum;
 		List<Feedback> entries, commentViewed;
 		
-		System.out.println(webpage);
+		//Get all the user accounts that have feedback
+		List<Admin> allFeedbackAdmins = feedback.getAllFeedbackAdmins();
 		
-		//If servlet called by retroCommentsByName page then retrieve the name that was clicked on
+		System.out.println("Servlet called by " + webpage);
+		
+		//Complete If statements depending on which webpage called the servlet
 		if(webpage.equals("retroCommentsByName")) {
+			//Get full name that was chosen and split string into first and last name
 			chosenName = request.getParameter("clickedName").split("-;");
 			userFirst = chosenName[0];
 			userLast = chosenName[1];
+			
+			//Get all the feedback given by this person
 			entries = feedback.getCommentsByProjInfo(userFirst, userLast);
+			
+			//Set attributes to be used by retroCommentsByProject.jsp
 			session.setAttribute("chosenFirst", userFirst);
 			session.setAttribute("chosenLast", userLast);
 			session.setAttribute("nameTitle", userFirst +" "+userLast+"'s"+" Comments");
 			session.setAttribute("entries", entries);
-			//chosenName = request.getParameter("clickedName");
 			response.sendRedirect("retroCommentsByProject.jsp");
 			return;
-		}else {
+		}else if(webpage.equals("retroCommentsByProject")) {
+			/*Get the feedback entry that was chosen and split
+			 * into teamNum, projectName, and sprintNum*/
 			chosenComment = request.getParameter("clickedProject").split("-;");
 			teamNum = Integer.parseInt(chosenComment[0]);
 			projectName = chosenComment[1];
 			sprintNum = Integer.parseInt(chosenComment[2]);
+			
 			System.out.println(teamNum + projectName + sprintNum);
 			System.out.println(session.getAttribute("chosenFirst").toString() + session.getAttribute("chosenLast").toString());
-			commentViewed = feedback.viewComments(session.getAttribute("chosenFirst").toString(), session.getAttribute("chosenLast").toString(), teamNum, projectName, sprintNum);
 			
-			//If servlet called by retroCommentsByProject page then retrieve the comment that was clicked on
+			//Get the wrong, well, and improve comments for the chosen feedback entry
+			commentViewed = feedback.viewComments(session.getAttribute("chosenFirst").toString(), session.getAttribute("chosenLast").toString(), teamNum, projectName, sprintNum);
+	
 			session.setAttribute("commentViewed", commentViewed);
-			//chosenComment = request.getParameter("clickedProject");
-			//System.out.println(chosenComment);
 			response.sendRedirect("viewComments.jsp");
 			return;
-			
-			
+		}else if(webpage.equals("welcome")) {
+			session.setAttribute("allFeedbackAdmins", allFeedbackAdmins);
+			response.sendRedirect("retroCommentsByName.jsp");
+			return;
 		}
 		
 	}

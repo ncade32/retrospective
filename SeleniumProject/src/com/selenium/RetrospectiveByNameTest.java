@@ -2,9 +2,6 @@ package com.selenium;
 
 import static org.junit.Assert.*;
 
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.List;
 
 import org.junit.Test;
@@ -15,8 +12,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
 
-import com.retrospective.DbManager;
-
 public class RetrospectiveByNameTest {
 
 	@Test
@@ -24,10 +19,10 @@ public class RetrospectiveByNameTest {
 		System.setProperty("webdriver.chrome.driver", "/home/ncade/Desktop/chromedriver");
 		WebDriver driver = new ChromeDriver();
 		//Make sure user is redirected to login page
-		driver.get("http://localhost:8080/Retrospective/retroCommentsByName.jsp");
+		driver.get("http://localhost:8080/RetroWeb/retroCommentsByName.jsp");
 		driver.manage().window();
 		
-		String findName = "test tests", teamNum= "4", projName="project2", sprintNum= "1", user="scrum", pass="test";
+		String findName = "Norman Cade", teamNum= "4", projName="project2", sprintNum= "1", user="scrum", pass="test";
 		String [] comments = {"hello", "goodbye", "hola"};
 		
 		String at = driver.getTitle();
@@ -38,7 +33,7 @@ public class RetrospectiveByNameTest {
 		driver.findElement(By.name("pass")).sendKeys(pass);
 		driver.findElement(By.name("login")).click();
 		List<WebElement> links = driver.findElements(By.tagName("a"));
-		links.get(1).click();
+		links.get(2).click();
 		at = driver.getTitle();
 		et = "Retrospective Comments By Name";
 		assertEquals(et,at);
@@ -73,9 +68,9 @@ public class RetrospectiveByNameTest {
 		Alert alert = driver.switchTo().alert();
 		alert.accept();
 		links = driver.findElements(By.tagName("a"));
-		links.get(1).click();
+		links.get(2).click();
 		//Check to see that the new entry shows up in the table by the user's name
-		assertEquals(findName, driver.findElement(By.id("test-;tests")).getText());
+		assertEquals(findName, driver.findElement(By.id("Norman-;Cade")).getText());
 		//Make sure search functionality works
 		driver.findElement(By.tagName("input")).sendKeys(findName);
 		List<WebElement> allRows = driver.findElements(By.tagName("tr"));
@@ -90,7 +85,7 @@ public class RetrospectiveByNameTest {
 		driver.close();
 		
 		//Delete the new entry from the database
-		Connection conn = DbManager.connect();
+		/*Connection conn = DbManager.connect();
 		Statement st;
 		try {
 			st = conn.createStatement();
@@ -100,7 +95,7 @@ public class RetrospectiveByNameTest {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 		
 	}
 

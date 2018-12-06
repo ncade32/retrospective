@@ -47,6 +47,8 @@ public class SubmitData extends HttpServlet {
 		well = request.getParameterValues("well");
 		improve = request.getParameterValues("improve");
 		
+		/*Make all comments entered into a string for each 
+		 * category so data can be entered into the database*/
 		wrongCommentsConcate = GetData.concateComments(wrong);
 		wellCommentsConcate = GetData.concateComments(well);
 		improveCommentsConcate = GetData.concateComments(improve);
@@ -57,8 +59,7 @@ public class SubmitData extends HttpServlet {
 		
 		int scrum = (Integer) session.getAttribute("scrum");
 		
-		//Check to see if the user is a scrum
-		
+		//Set attributes for this session to be use on verify.jsp
 		session.setAttribute("dataEntered", true);
 		session.setAttribute("teamNum", teamNum);
 		session.setAttribute("sprintNum", sprintNum);

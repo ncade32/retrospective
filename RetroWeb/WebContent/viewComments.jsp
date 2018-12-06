@@ -50,7 +50,7 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a href="welcomeScrum.jsp" id = "title" class = "retro-title">Retrospective</a>
+			<a href="welcome.jsp" id = "title" class = "retro-title">Retrospective</a>
 		</div>
 		
 		<div class="collapse navbar-collapse" id="myNavbar">

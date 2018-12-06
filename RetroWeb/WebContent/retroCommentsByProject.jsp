@@ -58,7 +58,7 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a href="welcomeScrum.jsp" id = "title" class = "retro-title">Retrospective</a>
+			<a href="welcome.jsp" id = "title" class = "retro-title">Retrospective</a>
 		</div>
 		
 		<div class="collapse navbar-collapse" id="myNavbar">
@@ -98,7 +98,7 @@
 			</table>
 			
 			<input type="hidden" name = "clickedProject" id="clickedProject" value=" " />
-			<input type="hidden" name = "webpage" id="webpage" value=" retroCommentsByProject" />
+			<input type="hidden" name = "webpage" id="webpage" value="retroCommentsByProject" />
 			</form>
 		</div>
 	</div>
