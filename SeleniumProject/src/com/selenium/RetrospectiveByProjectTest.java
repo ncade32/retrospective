@@ -2,11 +2,7 @@ package com.selenium;
 
 import static org.junit.Assert.*;
 
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import org.junit.Test;
 import org.openqa.selenium.Alert;
@@ -16,7 +12,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
 
-import com.retrospective.DbManager;
 
 public class RetrospectiveByProjectTest {
 

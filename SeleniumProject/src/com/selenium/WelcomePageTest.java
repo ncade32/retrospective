@@ -2,8 +2,7 @@ package com.selenium;
 
 import static org.junit.Assert.*;
 
-import java.sql.Connection;
-import java.sql.SQLException;
+
 import java.util.List;
 
 import org.junit.Test;
@@ -13,8 +12,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
 
-import com.retrospective.DbManager;
-import com.retrospective.GetData;
 
 public class WelcomePageTest {
 

@@ -58,6 +58,7 @@ public class Login extends HttpServlet {
 		for(int i = 0; i < allUsers.size(); i++) {
 			if(allUsers.get(i).getUser().equals(userInput)){
 				if(allUsers.get(i).getPass().equals(passInput)) {
+					System.out.println("Login successful");
 					correctUser = allUsers.get(i);
 					loginAttempt = true;
 				}

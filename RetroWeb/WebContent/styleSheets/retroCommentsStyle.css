@@ -49,6 +49,7 @@ body select{
 }
 a:hover {
     text-decoration: none;
+    color: #888;
 }
 ul {
   margin: 0;

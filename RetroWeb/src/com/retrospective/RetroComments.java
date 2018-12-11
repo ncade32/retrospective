@@ -56,6 +56,7 @@ public class RetroComments extends HttpServlet {
 			chosenName = request.getParameter("clickedName").split("-;");
 			userFirst = chosenName[0];
 			userLast = chosenName[1];
+			System.out.println("User clicked on " + userFirst + " " + userLast);
 			
 			//Get all the feedback given by this person
 			entries = feedback.getCommentsByProjInfo(userFirst, userLast);
@@ -75,8 +76,7 @@ public class RetroComments extends HttpServlet {
 			projectName = chosenComment[1];
 			sprintNum = Integer.parseInt(chosenComment[2]);
 			
-			System.out.println(teamNum + projectName + sprintNum);
-			System.out.println(session.getAttribute("chosenFirst").toString() + session.getAttribute("chosenLast").toString());
+			System.out.println("User clicked on" + teamNum + projectName + sprintNum);
 			
 			//Get the wrong, well, and improve comments for the chosen feedback entry
 			commentViewed = feedback.viewComments(session.getAttribute("chosenFirst").toString(), session.getAttribute("chosenLast").toString(), teamNum, projectName, sprintNum);

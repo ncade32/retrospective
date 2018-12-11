@@ -67,8 +67,8 @@ public class NewUserTest {
 		et = "Welcome To Retrospective";
 		assertEquals(et,at);
 		
-		
 		driver.close();
+		
 		
 		List<Admin> allUsers = admin.findAll();
 		System.out.println(allUsers.get(0));
@@ -80,6 +80,8 @@ public class NewUserTest {
 				admin.deleteRow("scrumReg");
 			}
 		}
+		
+		
 		
 		/*Connection conn = DbManager.connect();
 		Statement st;

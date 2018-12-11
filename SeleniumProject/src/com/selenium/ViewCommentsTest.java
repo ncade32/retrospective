@@ -2,9 +2,6 @@ package com.selenium;
 
 import static org.junit.Assert.*;
 
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.List;
 
 import org.junit.Test;
@@ -15,7 +12,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
 
-import com.retrospective.DbManager;
 
 public class ViewCommentsTest {
 
@@ -24,7 +20,7 @@ public class ViewCommentsTest {
 		System.setProperty("webdriver.chrome.driver", "/home/ncade/Desktop/chromedriver");
 		WebDriver driver = new ChromeDriver();
 		//Make sure user is redirected to login page
-		driver.get("http://localhost:8080/Retrospective/viewComments.jsp");
+		driver.get("http://localhost:8080/RetroWeb/viewComments.jsp");
 		driver.manage().window();
 		
 		String teamNum= "4", projName="project2", sprintNum= "1", user="scrum", pass="test";
@@ -92,7 +88,7 @@ public class ViewCommentsTest {
 		driver.close();
 		
 		//Delete new entry
-		Connection conn = DbManager.connect();
+		/*Connection conn = DbManager.connect();
 		Statement st;
 		try {
 			st = conn.createStatement();
@@ -102,7 +98,7 @@ public class ViewCommentsTest {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 		
 	}
 

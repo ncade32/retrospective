@@ -53,7 +53,7 @@ public class Confirmed extends HttpServlet {
 			 *entered a comment for this team, projectName, and sprint*/
 			if(feedback.isDuplicateEntry(uname, teamNum, projName, sprintNum)) {
 				//If true show error code for entering same comment twice
-				System.out.println("duplicate");
+				System.out.println("Duplicate entry for user");
 				out.println("<script type=\"text/javascript\">");
 				out.println("alert('Comments Already Entered For This Team, Project, And Sprint');");
 				out.println("location = 'verify.jsp';");
@@ -64,6 +64,7 @@ public class Confirmed extends HttpServlet {
 			//If comment is unique then store it into the database
 			feedback.createEntry(uname, teamNum, projName, sprintNum, wrongInfo, wellInfo, improveInfo, scrum);
 			onlineUsers.deleteRow(uname);
+			System.out.println("Data entered in feedback table for " + uname);
 			
 			session.setAttribute("dataEntered", false);
 			out.write("<script type=\"text/javascript\">");

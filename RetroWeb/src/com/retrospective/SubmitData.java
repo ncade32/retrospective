@@ -78,12 +78,14 @@ public class SubmitData extends HttpServlet {
 			if(allOnlineUsers.get(i).getUser().equals(uname)) {
 				onlineUsers.deleteRow(uname);
 				onlineUsers.createOnlineUser(uname, teamNum, projName, sprintNum, wrongCommentsConcate, wellCommentsConcate, improveCommentsConcate, scrum);
+				System.out.println("Data entered for username: "+ uname);
 				response.sendRedirect("verify.jsp");
 				return;
 			}
 		}
 		//If a entry is not found just store the new comment in onlineUser table
 		onlineUsers.createOnlineUser(uname, teamNum, projName, sprintNum, wrongCommentsConcate, wellCommentsConcate, improveCommentsConcate, scrum);
+		System.out.println("Data entered for username: "+ uname);
 		response.sendRedirect("verify.jsp");
 		return;
 	}
