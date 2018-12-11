@@ -73,7 +73,7 @@ public class ViewCommentsTest {
 		links.get(1).click();
 		driver.findElement(By.id("test-;tests")).click();
 		allRows = driver.findElements(By.tagName("tr"));
-		allRows.get(1).click();
+		allRows.get(2).click();
 		//Make sure comments are being displayed correctly
 		List<WebElement> allComments = driver.findElements(By.className("li-tasks-group"));
 		assertEquals(comments[0], allComments.get(0).getText());

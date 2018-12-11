@@ -23,7 +23,7 @@ public class RetrospectiveByProjectTest {
 		driver.get("http://localhost:8080/RetroWeb/retroCommentsByProject.jsp");
 		driver.manage().window();
 		
-		String findTitle = "Norman Cade\'S COMMENTS", teamNum= "4", projName="project2", sprintNum= "1", user="scrum", pass="test";
+		String findTitle = "TEST TESTS\'S COMMENTS", teamNum= "4", projName="project2", sprintNum= "1", user="scrum", pass="test";
 		String [] comments = {"hello", "goodbye", "hola"};
 		
 		String at = driver.getTitle();
@@ -52,7 +52,6 @@ public class RetrospectiveByProjectTest {
 		List<WebElement> links = driver.findElements(By.tagName("a"));
 		links.get(1).click();
 		driver.findElement(By.id("test-;tests")).click();
-		System.out.println("here");
 		at = driver.getTitle();
 		et = "Retrospective Comments By Project";
 		assertEquals(et,at);
@@ -75,9 +74,9 @@ public class RetrospectiveByProjectTest {
 		driver.findElement(By.id("test-;tests")).click();
 		assertEquals(findTitle, driver.findElement(By.tagName("h3")).getText());
 		List<WebElement> allRows = driver.findElements(By.tagName("tr"));
-		assertEquals(2, allRows.size());
+		assertEquals(3, allRows.size());
 		//Make sure correct information is retrieved for the user new entry
-		assertEquals(teamNum+"-;"+projName+"-;"+sprintNum, allRows.get(1).getAttribute("id"));
+		assertEquals(teamNum+"-;"+projName+"-;"+sprintNum, allRows.get(2).getAttribute("id"));
 		//Make sure user is redirected to page to view the comments for the new entry
 		allRows.get(1).click();
 		at = driver.getTitle();

@@ -33,7 +33,7 @@ public class RetrospectiveByNameTest {
 		driver.findElement(By.name("pass")).sendKeys(pass);
 		driver.findElement(By.name("login")).click();
 		List<WebElement> links = driver.findElements(By.tagName("a"));
-		links.get(2).click();
+		links.get(1).click();
 		at = driver.getTitle();
 		et = "Retrospective Comments By Name";
 		assertEquals(et,at);
@@ -68,7 +68,7 @@ public class RetrospectiveByNameTest {
 		Alert alert = driver.switchTo().alert();
 		alert.accept();
 		links = driver.findElements(By.tagName("a"));
-		links.get(2).click();
+		links.get(1).click();
 		//Check to see that the new entry shows up in the table by the user's name
 		assertEquals(findName, driver.findElement(By.id("Norman-;Cade")).getText());
 		//Make sure search functionality works
