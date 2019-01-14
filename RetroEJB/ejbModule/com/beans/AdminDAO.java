@@ -12,7 +12,7 @@ import com.entity.Admin;
 /**
  * Session Bean implementation class AdminLocalDAO
  */
-@Stateless(name="test")
+@Stateless
 public class AdminDAO implements AdminDAOLocal {
 	
 	@PersistenceContext
